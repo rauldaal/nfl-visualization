@@ -3,5 +3,5 @@ pandas
 matplotlib
 pygame
 moderngl
-glm
-sys
+pyglm
+pyyaml

@@ -1,0 +1,9 @@
+default_file: false
+save_data: true
+save_fileName: ready_data.csv
+play_type: sack
+home_team_abr: NE
+away_team_abr: DAL
+plays_id:
+  - XXXXX
+
