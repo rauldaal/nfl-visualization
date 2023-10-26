@@ -1,8 +1,9 @@
 
 import glm
+import numpy as np
 
 
-class Player:
+class Stadium:
     def __init__(self, app):
         self.app = app
         self.ctx = app.ctx
