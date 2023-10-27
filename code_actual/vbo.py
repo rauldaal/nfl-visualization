@@ -6,10 +6,12 @@ import pywavefront
 class VBO:
     def __init__(self, ctx):
         self.vbos = {}
-        self.vbos['cube'] = CubeVBO(ctx)
-        self.vbos['cat'] = CatVBO(ctx)
-        self.vbos['cat_visitante'] = CatVBO(ctx)
-        self.vbos['porteria'] = PorteriaVBO(ctx)
+        self.vbos['field'] = CubeVBO(ctx)
+        self.vbos['player_local'] = PlayerVBO(ctx)
+        self.vbos['player_visitant'] = PlayerVBO(ctx)
+        self.vbos['porteria_local'] = PorteriaVBO(ctx)
+        self.vbos['porteria_visitant'] = PorteriaVBO(ctx)
+
 
     def destroy(self):
         [vbo.destroy() for vbo in self.vbos.values()]
@@ -78,7 +80,7 @@ class CubeVBO(BaseVBO):
         return vertex_data
 
 
-class CatVBO(BaseVBO):
+class PlayerVBO(BaseVBO):
     def __init__(self, app):
         super().__init__(app)
         self.format = '2f 3f 3f'

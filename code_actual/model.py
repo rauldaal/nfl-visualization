@@ -34,8 +34,8 @@ class BaseModel:
         self.vao.render()
 
 
-class Cube(BaseModel):
-    def __init__(self, app, vao_name='cube', tex_id=0, pos=(0, 0, 0), rot=(0, 90, 0), scale=(40, 0.1, 20)):
+class Objects(BaseModel):
+    def __init__(self, app, vao_name='object', tex_id=0, pos=(0, 0, 0), rot=(0, 90, 0), scale=(40, 0.1, 20)):
         super().__init__(app, vao_name, tex_id, pos, rot, scale)
         self.on_init()
 
@@ -60,90 +60,37 @@ class Cube(BaseModel):
         self.program['light.Id'].write(self.app.light.Id)
         self.program['light.Is'].write(self.app.light.Is)
 
+class Field(Objects):
+    def __init__(self, app, vao_name='field', tex_id='field', pos=(0, 0, 0), rot=(0, 90, 0), scale=(40, 0.1, 20)):
+        super().__init__(app, vao_name, tex_id, pos, rot, scale)
+        self.on_init()
 
-class Cat(BaseModel):
-    def __init__(self, app, vao_name='cat', tex_id='cat',
+
+class Player_Local(Objects):
+    def __init__(self, app, vao_name='player_local', tex_id='player_local',
                  pos=(0, 0, 0), rot=(-90, 0, 0), scale=(0.015,0.015,0.015)):
         super().__init__(app, vao_name, tex_id, pos, rot, scale)
         self.on_init()
 
-    def update(self):
-        self.texture.use()
-        self.program['camPos'].write(self.camera.position)
-        self.program['m_view'].write(self.camera.m_view)
-        self.program['m_model'].write(self.m_model)
-
-    def on_init(self):
-        # texture
-        self.texture = self.app.mesh.texture.textures[self.tex_id]
-        self.program['u_texture_0'] = 0
-        self.texture.use()
-        # mvp
-        self.program['m_proj'].write(self.camera.m_proj)
-        self.program['m_view'].write(self.camera.m_view)
-        self.program['m_model'].write(self.m_model)
-        # light
-        self.program['light.position'].write(self.app.light.position)
-        self.program['light.Ia'].write(self.app.light.Ia)
-        self.program['light.Id'].write(self.app.light.Id)
-        self.program['light.Is'].write(self.app.light.Is)
-
-
-
-class Cat_visitante(BaseModel):
-    def __init__(self, app, vao_name='cat_visitante', tex_id='cat_visitante',
+class Player_Visitant(Objects):
+    def __init__(self, app, vao_name='player_visitant', tex_id='player_visitant',
                  pos=(0, 0, 0), rot=(-90, 180, 0), scale=(0.015,0.015,0.015)):
         super().__init__(app, vao_name, tex_id, pos, rot, scale)
         self.on_init()
 
-    def update(self):
-        self.texture.use()
-        self.program['camPos'].write(self.camera.position)
-        self.program['m_view'].write(self.camera.m_view)
-        self.program['m_model'].write(self.m_model)
 
-    def on_init(self):
-        # texture
-        self.texture = self.app.mesh.texture.textures[self.tex_id]
-        self.program['u_texture_0'] = 0
-        self.texture.use()
-        # mvp
-        self.program['m_proj'].write(self.camera.m_proj)
-        self.program['m_view'].write(self.camera.m_view)
-        self.program['m_model'].write(self.m_model)
-        # light
-        self.program['light.position'].write(self.app.light.position)
-        self.program['light.Ia'].write(self.app.light.Ia)
-        self.program['light.Id'].write(self.app.light.Id)
-        self.program['light.Is'].write(self.app.light.Is)
-
-
-class Porteria(BaseModel):
-    def __init__(self, app, vao_name='porteria', tex_id='porteria',
+class Porteria_Local(Objects):
+    def __init__(self, app, vao_name='porteria_local', tex_id='porteria_local',
                  pos=(0, 0, 0), rot=(180, 90, 180), scale=(0.07,0.07,0.07)):
         super().__init__(app, vao_name, tex_id, pos, rot, scale)
         self.on_init()
 
-    def update(self):
-        self.texture.use()
-        self.program['camPos'].write(self.camera.position)
-        self.program['m_view'].write(self.camera.m_view)
-        self.program['m_model'].write(self.m_model)
 
-    def on_init(self):
-        # texture
-        self.texture = self.app.mesh.texture.textures[self.tex_id]
-        self.program['u_texture_0'] = 0
-        self.texture.use()
-        # mvp
-        self.program['m_proj'].write(self.camera.m_proj)
-        self.program['m_view'].write(self.camera.m_view)
-        self.program['m_model'].write(self.m_model)
-        # light
-        self.program['light.position'].write(self.app.light.position)
-        self.program['light.Ia'].write(self.app.light.Ia)
-        self.program['light.Id'].write(self.app.light.Id)
-        self.program['light.Is'].write(self.app.light.Is)
+class Porteria_Visitant(Porteria_Local):
+    def __init__(self, app, vao_name='porteria_visitant', tex_id='porteria_visitant',
+                 pos=(0, 0, 0), rot=(180, 90, 180), scale=(0.07,0.07,0.07)):
+        super().__init__(app, vao_name, tex_id, pos, rot, scale)
+        self.on_init()
 
 
 

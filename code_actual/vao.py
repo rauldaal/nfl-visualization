@@ -10,22 +10,27 @@ class VAO:
         self.vaos = {}
 
         # cube vao
-        self.vaos['cube'] = self.get_vao(
+        self.vaos['field'] = self.get_vao(
             program=self.program.programs['default'],
-            vbo = self.vbo.vbos['cube'])
+            vbo = self.vbo.vbos['field'])
 
         # cat vao
-        self.vaos['cat'] = self.get_vao(
+        self.vaos['player_local'] = self.get_vao(
             program=self.program.programs['default'],
-            vbo=self.vbo.vbos['cat'])
+            vbo=self.vbo.vbos['player_local'])
         
-        self.vaos['cat_visitante'] = self.get_vao(
+        self.vaos['player_visitant'] = self.get_vao(
             program=self.program.programs['default'],
-            vbo=self.vbo.vbos['cat_visitante'])
+            vbo=self.vbo.vbos['player_visitant'])
         
-        self.vaos['porteria'] = self.get_vao(
+        self.vaos['porteria_local'] = self.get_vao(
             program=self.program.programs['default'],
-            vbo=self.vbo.vbos['porteria'])
+            vbo=self.vbo.vbos['porteria_local'])
+        
+        self.vaos['porteria_visitant'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['porteria_visitant'])
+
 
     def get_vao(self, program, vbo):
         vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attribs)])

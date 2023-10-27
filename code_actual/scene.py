@@ -14,11 +14,11 @@ class Scene:
         app = self.app
         add = self.add_object
 
-        add(Cube(app, pos=(0,0,0)))
+        add(Field(app, pos=(0,0,0)))
         
         x=0
         for i in range(11):                
-            add(Cat(app, pos=(x, 0, -20)))
+            add(Player_Local(app, pos=(x, 0, -20)))
             if i%2==0:
                 x+=1.5*(i+1)
             else:
@@ -26,17 +26,17 @@ class Scene:
 
         x=0
         for i in range(11):                
-            add(Cat_visitante(app, pos=(x, 0, 20)))
+            add(Player_Visitant(app, pos=(x, 0, 20)))
             if i%2==0:
                 x+=1.5*(i+1)
             else:
                 x-=1.5*(i+1)
 
         #porterias
-        add(Porteria(app, pos= (0,0,38)))
+        add(Porteria_Local(app, pos= (0,0,38)))
 
-                #porterias
-        add(Porteria(app, pos= (0,0,-38)))
+        #porterias
+        add(Porteria_Visitant(app, pos= (0,0,-38)))
 
         
 

@@ -6,10 +6,12 @@ class Texture:
     def __init__(self, ctx):
         self.ctx = ctx
         self.textures = {}
-        self.textures[0] = self.get_texture(path='objects/cat/campo_2_1.jpg')
-        self.textures['cat'] = self.get_texture(path='objects/cat/equipacion_local.jpg')
-        self.textures['cat_visitante'] = self.get_texture(path='objects/cat/equipacion_visitante.jpg')
-        self.textures['porteria'] = self.get_texture(path='objects/cat/post.jpg')
+        self.textures['field'] = self.get_texture(path='objects/cat/campo_2_1.jpg')
+        self.textures['player_local'] = self.get_texture(path='objects/cat/equipacion_local.jpg')
+        self.textures['player_visitant'] = self.get_texture(path='objects/cat/equipacion_visitante.jpg')
+        self.textures['porteria_local'] = self.get_texture(path='objects/cat/post.jpg')
+        self.textures['porteria_visitant'] = self.get_texture(path='objects/cat/post.jpg')
+
 
 
     def get_texture(self, path):
