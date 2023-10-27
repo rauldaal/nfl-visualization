@@ -81,7 +81,7 @@ class Player_Visitant(Objects):
 
 class Porteria_Local(Objects):
     def __init__(self, app, vao_name='porteria_local', tex_id='porteria_local',
-                 pos=(0, 0, 0), rot=(180, 90, 180), scale=(0.07,0.07,0.07)):
+                 pos=(0, 0, 0), rot=(-90, -90, 90), scale=(0.07,0.07,0.07)):
         super().__init__(app, vao_name, tex_id, pos, rot, scale)
         self.on_init()
 

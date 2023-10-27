@@ -33,10 +33,10 @@ class Scene:
                 x-=1.5*(i+1)
 
         #porterias
-        add(Porteria_Local(app, pos= (0,0,38)))
+        add(Porteria_Local(app, pos= (0,0,-38)))
 
         #porterias
-        add(Porteria_Visitant(app, pos= (0,0,-38)))
+        add(Porteria_Visitant(app, pos= (0,0,38)))
 
         
 
