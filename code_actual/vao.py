@@ -30,6 +30,10 @@ class VAO:
         self.vaos['porteria_visitant'] = self.get_vao(
             program=self.program.programs['default'],
             vbo=self.vbo.vbos['porteria_visitant'])
+        
+        self.vaos['grada'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['grada'])
 
 
     def get_vao(self, program, vbo):

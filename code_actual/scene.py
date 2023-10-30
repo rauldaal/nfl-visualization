@@ -37,8 +37,31 @@ class Scene:
 
         #porterias
         add(Porteria_Visitant(app, pos= (0,0,38)))
+        '''
 
-        
+         x=0
+        for i in range(50):                
+            add(Grada(app, pos= (20,0,x)))
+            if i%2==0:
+                x+=1.5*(i+1)
+            else:
+                x-=1.5*(i+1)
+        '''
+
+        x=0
+        n = 20
+        y = 0
+        for p in range(0,8):
+            for i in range(50):                
+                add(Grada(app, pos= (-n,p,x)))
+                if i%2==0:
+                    x+=1.5*(i+1)
+                else:
+                    x-=1.5*(i+1)
+            x=0
+            n+=2
+            y+=0.5
+               
 
     def render(self):
         for obj in self.objects:

@@ -11,6 +11,8 @@ class Texture:
         self.textures['player_visitant'] = self.get_texture(path='objects/cat/equipacion_visitante.jpg')
         self.textures['porteria_local'] = self.get_texture(path='objects/cat/post.jpg')
         self.textures['porteria_visitant'] = self.get_texture(path='objects/cat/post.jpg')
+        self.textures['grada'] = self.get_texture(path='objects/GradaEscalera_3B.jpg')
+
 
 
 

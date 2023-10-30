@@ -81,14 +81,20 @@ class Player_Visitant(Objects):
 
 class Porteria_Local(Objects):
     def __init__(self, app, vao_name='porteria_local', tex_id='porteria_local',
-                 pos=(0, 0, 0), rot=(-90, -90, 90), scale=(0.07,0.07,0.07)):
+                 pos=(0, 0, 0), rot=(-90, -90, 90), scale=(0.3,0.3,0.25)):
         super().__init__(app, vao_name, tex_id, pos, rot, scale)
         self.on_init()
 
 
 class Porteria_Visitant(Porteria_Local):
     def __init__(self, app, vao_name='porteria_visitant', tex_id='porteria_visitant',
-                 pos=(0, 0, 0), rot=(180, 90, 180), scale=(0.07,0.07,0.07)):
+                 pos=(0, 0, 0), rot=(180, 90, 180), scale=(0.3,0.3,0.25)):
+        super().__init__(app, vao_name, tex_id, pos, rot, scale)
+        self.on_init()
+
+class Grada(Porteria_Local):
+    def __init__(self, app, vao_name='grada', tex_id='grada',
+                 pos=(0, 0, 0), rot=(0, -90, 0), scale=(0.4,0.4,0.2)):
         super().__init__(app, vao_name, tex_id, pos, rot, scale)
         self.on_init()
 
