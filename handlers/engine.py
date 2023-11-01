@@ -6,6 +6,7 @@ from .camera import Camera
 from .light import Light
 from .mesh import Mesh
 from .scene import Scene
+from .data_loader import DataLoader
 
 
 class GraphicsEngine:
@@ -40,6 +41,16 @@ class GraphicsEngine:
         # scene
         self.scene = Scene(self)
 
+        #data loader
+        self.dataloader = DataLoader(
+            players_df='data/players.csv',
+            plays_df='data/plays.csv',
+            week_df='data/allweeks.csv'
+        )
+        #self.dataloader.get_game(game_id=2021090900)
+        #self.dataloader.get_play(play_id=2279)
+        self.dataloader.load_example()
+
     def check_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
@@ -50,8 +61,10 @@ class GraphicsEngine:
     def render(self):
         # clear framebuffer
         self.ctx.clear(color=(0.08, 0.16, 0.18))
+        #get new data
+        data = self.dataloader.get_frame_information(frames_id=1)
         # render scene
-        self.scene.render()
+        self.scene.render(data)
         # swap buffers
         pg.display.flip()
 
