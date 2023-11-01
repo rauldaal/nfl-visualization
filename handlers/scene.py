@@ -1,4 +1,4 @@
-from objects import Porteria_Visitant, Porteria_Local, Player_Local, Player_Visitant, Field, Grada
+from objects import Porteria_Visitant, Porteria_Local, Player_Local, Player_Visitant, Field, Grada, Ball
 
 
 class Scene:
@@ -15,7 +15,7 @@ class Scene:
         add = self.add_object
 
         add(Field(app, pos=(0,0,0)))
-        
+        add(Ball(app, pos=(0, 2, 0)))
         x=0
         for i in range(11):                
             add(Player_Local(app, pos=(x, 0, -20)))

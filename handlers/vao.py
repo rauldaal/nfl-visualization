@@ -34,6 +34,9 @@ class VAO:
         self.vaos['grada'] = self.get_vao(
             program=self.program.programs['default'],
             vbo=self.vbo.vbos['grada'])
+        self.vaos['ball'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['ball'])
 
 
     def get_vao(self, program, vbo):

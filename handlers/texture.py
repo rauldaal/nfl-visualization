@@ -12,6 +12,7 @@ class Texture:
         self.textures['porteria_local'] = self.get_texture(path='models/cat/post.jpg')
         self.textures['porteria_visitant'] = self.get_texture(path='models/cat/post.jpg')
         self.textures['grada'] = self.get_texture(path='models/GradaEscalera_3B.jpg')
+        self.textures['ball'] = self.get_texture(path='textures/beyaz.png')
 
 
 
