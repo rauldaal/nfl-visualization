@@ -61,7 +61,7 @@ class GraphicsEngine:
     def render(self):
         # clear framebuffer
         self.ctx.clear(color=(0.08, 0.16, 0.18))
-        #get new data
+        # get new data
         data = self.dataloader.get_frame_information(frames_id=1)
         # render scene
         self.scene.render(data)

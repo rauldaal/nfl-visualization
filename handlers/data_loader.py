@@ -5,7 +5,7 @@ class DataLoader():
     def __init__(self, players_df=None, plays_df=None, week_df=None):
         self.players = pd.read_csv(players_df)
         self.plays = pd.read_csv(plays_df)
-        self.weeks = pd.read_csv(week_df)
+        # self.weeks = pd.read_csv(week_df)
         self.data = None
 
     def get_game(self, game_id):

@@ -30,7 +30,7 @@ class BaseModel:
         return m_model
 
     def render(self):
-        self.update()
+        # self.update()
         self.vao.render()
 
 
