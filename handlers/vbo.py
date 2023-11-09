@@ -134,7 +134,7 @@ class BallVBO(BaseVBO):
         self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
 
     def get_vertex_data(self):
-        objs = pywavefront.Wavefront('models/USAball.obj', cache=True, parse=True)
+        objs = pywavefront.Wavefront('models/ball.obj', cache=True, parse=True)
 
         obj = objs.materials.popitem()[1]
         vertex_data = obj.vertices

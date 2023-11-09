@@ -28,7 +28,7 @@ class Scene:
             players_visitor = data[data['team'] == teams[1]]
 
         add(Field(app, pos=(26.7, 0, 60)))
-        add(Ball(app, pos=(ball_pos_x, 2, ball_pos_y)))
+        add(Ball(app, pos=(ball_pos_y, 2, ball_pos_x)))
 
         x=0
         for i in range(11):
