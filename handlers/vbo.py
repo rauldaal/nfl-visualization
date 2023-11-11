@@ -6,13 +6,14 @@ import pywavefront
 class VBO:
     def __init__(self, ctx):
         self.vbos = {}
-        self.vbos['field'] = CubeVBO(ctx)
+        self.vbos['field'] = Field(ctx)
         self.vbos['player_local'] = PlayerVBO(ctx)
         self.vbos['player_visitant'] = PlayerVBO(ctx)
         self.vbos['porteria_local'] = PorteriaVBO(ctx)
         self.vbos['porteria_visitant'] = PorteriaVBO(ctx)
         self.vbos['grada'] = GradaVBO(ctx)
         self.vbos['ball'] = BallVBO(ctx)
+        self.vbos['stadium'] = Stadium(ctx)
 
 
     def destroy(self):
@@ -36,49 +37,36 @@ class BaseVBO:
     def destroy(self):
         self.vbo.release()
 
-
-class CubeVBO(BaseVBO):
-    def __init__(self, ctx):
-        super().__init__(ctx)
+class Field(BaseVBO):
+    def __init__(self, app):
+        super().__init__(app)
         self.format = '2f 3f 3f'
         self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
 
-    @staticmethod
-    def get_data(vertices, indices):
-        data = [vertices[ind] for triangle in indices for ind in triangle]
-        return np.array(data, dtype='f4')
+    def get_vertex_data(self):
+        #objs = pywavefront.Wavefront('models/cat/20430_Cat_v1_NEW.obj', cache=True, parse=True)
+        #objs = pywavefront.Wavefront('models/stadium.obj', cache=True, parse=True)
+        objs = pywavefront.Wavefront('models/field2/field.obj', cache=True, parse=True)
+
+        obj = objs.materials.popitem()[1]
+        vertex_data = obj.vertices
+        vertex_data = np.array(vertex_data, dtype='f4')
+        return vertex_data
+
+class Stadium(BaseVBO):
+    def __init__(self, app):
+        super().__init__(app)
+        self.format = '2f 3f 3f'
+        self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
 
     def get_vertex_data(self):
-        vertices = [(-1, -1, 1), ( 1, -1,  1), (1,  1,  1), (-1, 1,  1),
-                    (-1, 1, -1), (-1, -1, -1), (1, -1, -1), ( 1, 1, -1)]
+        #objs = pywavefront.Wavefront('models/cat/20430_Cat_v1_NEW.obj', cache=True, parse=True)
+        #objs = pywavefront.Wavefront('models/stadium.obj', cache=True, parse=True)
+        objs = pywavefront.Wavefront('models/stadium/stadium6.obj', cache=True, parse=True)
 
-        indices = [(0, 2, 3), (0, 1, 2),
-                   (1, 7, 2), (1, 6, 7),
-                   (6, 5, 4), (4, 7, 6),
-                   (3, 4, 5), (3, 5, 0),
-                   (3, 7, 4), (3, 2, 7),
-                   (0, 6, 1), (0, 5, 6)]
-        vertex_data = self.get_data(vertices, indices)
-
-        tex_coord_vertices = [(0, 0), (1, 0), (1, 1), (0, 1)]
-        tex_coord_indices = [(0, 2, 3), (0, 1, 2),
-                             (0, 2, 3), (0, 1, 2),
-                             (0, 1, 2), (2, 3, 0),
-                             (2, 3, 0), (2, 0, 1),
-                             (0, 2, 3), (0, 1, 2),
-                             (3, 1, 2), (3, 0, 1),]
-        tex_coord_data = self.get_data(tex_coord_vertices, tex_coord_indices)
-
-        normals = [( 0, 0, 1) * 6,
-                   ( 1, 0, 0) * 6,
-                   ( 0, 0,-1) * 6,
-                   (-1, 0, 0) * 6,
-                   ( 0, 1, 0) * 6,
-                   ( 0,-1, 0) * 6,]
-        normals = np.array(normals, dtype='f4').reshape(36, 3)
-
-        vertex_data = np.hstack([normals, vertex_data])
-        vertex_data = np.hstack([tex_coord_data, vertex_data])
+        obj = objs.materials.popitem()[1]
+        vertex_data = obj.vertices
+        vertex_data = np.array(vertex_data, dtype='f4')
         return vertex_data
 
 
@@ -91,7 +79,7 @@ class PlayerVBO(BaseVBO):
     def get_vertex_data(self):
         #objs = pywavefront.Wavefront('models/cat/20430_Cat_v1_NEW.obj', cache=True, parse=True)
         #objs = pywavefront.Wavefront('models/stadium.obj', cache=True, parse=True)
-        objs = pywavefront.Wavefront('models/player.obj', cache=True, parse=True)
+        objs = pywavefront.Wavefront('models/player/player.obj', cache=True, parse=True)
 
         obj = objs.materials.popitem()[1]
         vertex_data = obj.vertices
@@ -105,7 +93,7 @@ class PorteriaVBO(BaseVBO):
         self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
 
     def get_vertex_data(self):
-        objs = pywavefront.Wavefront('models/porteria_good.obj', cache=True, parse=True)
+        objs = pywavefront.Wavefront('models/goalpost/porteria_good.obj', cache=True, parse=True)
 
         obj = objs.materials.popitem()[1]
         vertex_data = obj.vertices
@@ -119,7 +107,7 @@ class GradaVBO(BaseVBO):
         self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
 
     def get_vertex_data(self):
-        objs = pywavefront.Wavefront('models/grada.obj', cache=True, parse=True)
+        objs = pywavefront.Wavefront('models/grada/grada.obj', cache=True, parse=True)
 
         obj = objs.materials.popitem()[1]
         vertex_data = obj.vertices
@@ -134,7 +122,7 @@ class BallVBO(BaseVBO):
         self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
 
     def get_vertex_data(self):
-        objs = pywavefront.Wavefront('models/ball.obj', cache=True, parse=True)
+        objs = pywavefront.Wavefront('models/ball/ball.obj', cache=True, parse=True)
 
         obj = objs.materials.popitem()[1]
         vertex_data = obj.vertices

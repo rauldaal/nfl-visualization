@@ -1,4 +1,4 @@
-from objects import Porteria_Visitant, Porteria_Local, Player_Local, Player_Visitant, Field, Grada, Ball
+from objects import Porteria_Visitant, Porteria_Local, Player_Local, Player_Visitant, Field, Grada, Ball, Stadium
 import numpy as np
 
 
@@ -26,41 +26,39 @@ class Scene:
             teams = data['team'].unique().tolist()
             players_local = data[data['team'] == teams[0]]
             players_visitor = data[data['team'] == teams[1]]
+        add(Stadium(app, pos=(61, 0, 27.5)))
+        add(Field(app, pos=(61, 0, 27.5), rot=(0, 0, 0)))
+        add(Ball(app, pos=(ball_pos_x, 2, ball_pos_y)))
+        
 
-        add(Field(app, pos=(26.7, 0, 60)))
-        add(Ball(app, pos=(ball_pos_y, 2, ball_pos_x)))
-
-        x=0
+        x = 0
+        angle = 0
         for i in range(11):
             x = 0
-            z =20
+            z = 20
             if players_local is not None:
-                z = players_local.iloc[i]['x']
-                x = players_local.iloc[i]['y']
-            add(Player_Local(app, pos=(x, 0, z)))
-            #if i%2==0:
-            #    x+=1.5*(i+1)
-            #else:
-            #    x-=1.5*(i+1)
+                x = players_local.iloc[i]['x']
+                z = players_local.iloc[i]['y']
+                angle = players_local.iloc[i]['dir']
+            add(Player_Local(app, pos=(x, 0, z), rot=(-90, angle, 0)))
 
         x=0
+        angle = 0
         for i in range(11):
             x = 0
             z = -20
             if players_visitor is not None:
                 x = players_visitor.iloc[i]['x']
-                z = players_visitor.iloc[i]['y']          
-            add(Player_Visitant(app, pos=(z, 0, x)))
-            #if i%2==0:
-            #    x+=1.5*(i+1)
-            #else:
-            #    x-=1.5*(i+1)
+                z = players_visitor.iloc[i]['y']
+                angle = players_local.iloc[i]['dir']
+            add(Player_Visitant(app, pos=(x, 0, z), rot=(-90, angle, 0)))
+
 
         #porterias
-        add(Porteria_Local(app, pos=(0,0,-38)))
+        add(Porteria_Local(app, pos=(0, 0, 27.5), rot=(0, 0, 0)))
 
         #porterias
-        add(Porteria_Visitant(app, pos=(0,0,38)))
+        add(Porteria_Visitant(app, pos=(122, 0, 27.5), rot=(0, 180, 0)))
         '''
 
          x=0

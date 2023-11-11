@@ -6,13 +6,14 @@ class Texture:
     def __init__(self, ctx):
         self.ctx = ctx
         self.textures = {}
-        self.textures['field'] = self.get_texture(path='models/cat/campo_2_1.jpg')
-        self.textures['player_local'] = self.get_texture(path='models/cat/equipacion_local.jpg')
-        self.textures['player_visitant'] = self.get_texture(path='models/cat/equipacion_visitante.jpg')
-        self.textures['porteria_local'] = self.get_texture(path='models/cat/post.jpg')
-        self.textures['porteria_visitant'] = self.get_texture(path='models/cat/post.jpg')
-        self.textures['grada'] = self.get_texture(path='models/GradaEscalera_3B.jpg')
+        self.textures['field'] = self.get_texture(path='textures/campo_2.jpg')
+        self.textures['player_local'] = self.get_texture(path='textures/local_uniform.png')
+        self.textures['player_visitant'] = self.get_texture(path='textures/away_uniform.png')
+        self.textures['porteria_local'] = self.get_texture(path='textures/post.jpg')
+        self.textures['porteria_visitant'] = self.get_texture(path='textures/post.jpg')
+        self.textures['grada'] = self.get_texture(path='textures/GradaEscalera_3B.jpg')
         self.textures['ball'] = self.get_texture(path='textures/kahverengi.png')
+        self.textures['stadium'] = self.get_texture(path='textures/beyaz.png')
 
 
     def get_texture(self, path):
