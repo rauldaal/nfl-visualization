@@ -10,12 +10,13 @@ class Player_Local(Objects):
     def update(self, pos, o):
         # change pos + orientation
         i = glm.mat4(1.0)
-        rotation = glm.rotate(i, o) # m_model, self.rot.z, glm.vec3(0, 0, 1)
-        transform = glm.translate(rotation, pos)
-        # m_model = glm.translate(self.m_model, (0, 0, 0))
-        # m_model = glm.rotate(m_model, self.rot.z, glm.vec3(0, 0, 1)) # mirar o!!
-        # m_model = glm.translate(m_model, pos)
-        self.m_model = m_model * transform
+        # rotation = glm.rotate(i, o, glm.vec3(0, 0, 1)) # m_model, self.rot.z, glm.vec3(0, 0, 1)
+        # transform = glm.translate(rotation, pos)
+        m_model = glm.translate(self.m_model, (0, 0, 0))
+        m_model = glm.rotate(m_model, self.rot.z, glm.vec3(0, 0, 1)) # mirar o!!
+        m_model = glm.translate(m_model, pos)
+        self.m_model = m_model
+        # self.m_model = m_model * transform
         super().update()
 
 class Player_Visitant(Objects):

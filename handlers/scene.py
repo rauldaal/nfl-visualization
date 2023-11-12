@@ -3,11 +3,11 @@ import numpy as np
 
 
 class Scene:
-    def __init__(self, app):
+    def __init__(self, app, data):
         self.app = app
         # self.objects = []
         self.objects = dict()
-        self.load()
+        self.load(data)
 
     def add_object(self, obj, obj_id):
         # self.objects.append(obj)
@@ -48,41 +48,24 @@ class Scene:
             if players_local is not None:
                 z = players_local.iloc[i]['x']
                 x = players_local.iloc[i]['y']
-            add(Player_Local(app, pos=(x, 0, z)), f'player_{i}')
-            #if i%2==0:
-            #    x+=1.5*(i+1)
-            #else:
-            #    x-=1.5*(i+1)
+            add(Player_Local(app, pos=(x, 0, z)), f'player_{players_local.iloc[i]["nflId"]}')
 
         # Visit Team
         # Get id from data
         x=0
-        for i in range(11, 22):
+        for i in range(0, 11):
             x = 0
             z = -20
             if players_visitor is not None:
                 x = players_visitor.iloc[i]['x']
                 z = players_visitor.iloc[i]['y']          
-            add(Player_Visitant(app, pos=(z, 0, x)), f'player_{i}')
-            #if i%2==0:
-            #    x+=1.5*(i+1)
-            #else:
-            #    x-=1.5*(i+1)
+            add(Player_Visitant(app, pos=(z, 0, x)), f'player_{players_visitor.iloc[i]["nflId"]}')
 
         #porterias
         add(Porteria_Local(app, pos=(0,0,-38)), 'porteria_local')
 
         #porterias
         add(Porteria_Visitant(app, pos=(0,0,38)), 'porteria_vis')
-        '''
-        x=0
-        for i in range(50):                
-            add(Grada(app, pos= (20,0,x)))
-            if i%2==0:
-                x+=1.5*(i+1)
-            else:
-                x-=1.5*(i+1)
-        '''
 
         x=0
         n = 20
@@ -99,16 +82,24 @@ class Scene:
             y+=0.5
 
     def render(self, data=None):
-        # self.objects = []
-        # self.load(data)
+        ball_pos_x = data[data['nflId'].isna()]['x'].values[0]
+        ball_pos_y = data[data['nflId'].isna()]['y'].values[0]
+        teams = data['team'].unique().tolist()
+        players_data = data[data['team'] != teams[2]]
+        # players_visitor = data[data['team'] == teams[1]]
+
+        o = None
         for i, obj in self.objects.items():
-            pos = (0,0,0)
-            o = None
-            if 'player' in i or 'ball' in i:
+            if 'player' in i:
                 # coger nueva posicion + o from DATA
-                pos = (0,0,0)
-                o = None
+                player_id = i.split('_')[-1]
+                z = players_data[players_data['nflId'] == float(player_id)]['x'].values[0]
+                x = players_data[players_data['nflId'] == float(player_id)]['y'].values[0]
+                pos = (x, 0, z)
                 obj.update(pos, o=None)
+            elif 'ball' == i:
+                pos = (ball_pos_x, 0, ball_pos_y)
+                obj.update(pos, o)
             else:
                 obj.update()
             obj.render()

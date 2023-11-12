@@ -4,12 +4,12 @@ import pygame as pg
 FOV = 50  # deg
 NEAR = 0.1
 FAR = 200
-SPEED = 0.005
+SPEED = 0.05
 SENSITIVITY = 0.04
 
 
 class Camera:
-    def __init__(self, app, position=(0, 0, 4), yaw=-90, pitch=0):
+    def __init__(self, app, position=(0, 20, 4), yaw=-90, pitch=0):
         self.app = app
         self.aspect_ratio = app.WIN_SIZE[0] / app.WIN_SIZE[1]
         self.position = glm.vec3(position)

@@ -39,8 +39,6 @@ class GraphicsEngine:
         self.camera = Camera(self)
         # mesh
         self.mesh = Mesh(self)
-        # scene
-        self.scene = Scene(self)
 
         #data loader
         self.dataloader = DataLoader(
@@ -53,6 +51,9 @@ class GraphicsEngine:
         self.dataloader.load_example()
         self.dataloader.get_num_frames()
         self.frame = 1
+        data = self.dataloader.get_frame_information(frames_id=self.frame)
+        # scene
+        self.scene = Scene(self, data)
 
     def check_events(self):
         for event in pg.event.get():
