@@ -40,7 +40,6 @@ class Scene:
         add(Ball(app, pos=(ball_pos_x, 2, ball_pos_y)), 'ball')
 
         # Local Team
-        # Get id from data
         x=0
         for i in range(11):
             x = 0
@@ -50,16 +49,15 @@ class Scene:
                 x = players_local.iloc[i]['y']
             add(Player_Local(app, pos=(x, 0, z)), f'player_{players_local.iloc[i]["nflId"]}')
 
-        # Visit Team
-        # Get id from data
+        # # Visit Team
         x=0
         for i in range(0, 11):
             x = 0
             z = -20
             if players_visitor is not None:
-                x = players_visitor.iloc[i]['x']
-                z = players_visitor.iloc[i]['y']          
-            add(Player_Visitant(app, pos=(z, 0, x)), f'player_{players_visitor.iloc[i]["nflId"]}')
+                z = players_visitor.iloc[i]['x']
+                x = players_visitor.iloc[i]['y']          
+            add(Player_Visitant(app, pos=(x, 0, z)), f'player_{players_visitor.iloc[i]["nflId"]}')
 
         #porterias
         add(Porteria_Local(app, pos=(0,0,-38)), 'porteria_local')
@@ -86,8 +84,7 @@ class Scene:
         ball_pos_y = data[data['nflId'].isna()]['y'].values[0]
         teams = data['team'].unique().tolist()
         players_data = data[data['team'] != teams[2]]
-        # players_visitor = data[data['team'] == teams[1]]
-
+        
         o = None
         for i, obj in self.objects.items():
             if 'player' in i:
