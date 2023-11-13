@@ -80,8 +80,8 @@ class Scene:
             y+=0.5
 
     def render(self, data=None):
-        ball_pos_x = data[data['nflId'].isna()]['x'].values[0]
-        ball_pos_y = data[data['nflId'].isna()]['y'].values[0]
+        ball_pos_z = data[data['nflId'].isna()]['x'].values[0]
+        ball_pos_x = data[data['nflId'].isna()]['y'].values[0]
         teams = data['team'].unique().tolist()
         players_data = data[data['team'] != teams[2]]
         
@@ -95,7 +95,7 @@ class Scene:
                 pos = (x, 0, z)
                 obj.update(pos, o=None)
             elif 'ball' == i:
-                pos = (ball_pos_x, 0, ball_pos_y)
+                pos = (ball_pos_x, 0, ball_pos_z)
                 obj.update(pos, o)
             else:
                 obj.update()

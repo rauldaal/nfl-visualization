@@ -77,16 +77,11 @@ class GraphicsEngine:
         data = self.dataloader.get_frame_information(frames_id=self.frame)
         # render scene
         self.scene.render(data)
-        # print(self.frame)
         # swap buffers
         pg.display.flip()
         if (self.time - self.delta_time) > 0.1:
             self.delta_time = self.time
             self.update_frame_id()
-        # print(self.frame)
-        # print(self.time)
-        # print(self.delta_time)
-        # print("End Iter")
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
