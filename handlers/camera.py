@@ -16,8 +16,8 @@ class Camera:
         self.up = glm.vec3(0, 1, 0)
         self.right = glm.vec3(1, 0, 0)
         self.forward = glm.vec3(0, 0, -1)
-        self.yaw = yaw
-        self.pitch = pitch
+        self.yaw = yaw # orientacio
+        self.pitch = pitch # inclinacio
         # view matrix
         self.m_view = self.get_view_matrix()
         # projection matrix
@@ -67,8 +67,6 @@ class Camera:
 
     def get_projection_matrix(self):
         return glm.perspective(glm.radians(FOV), self.aspect_ratio, NEAR, FAR)
-
-
 
 
 

@@ -8,6 +8,8 @@ from .light import Light
 from .mesh import Mesh
 from .scene import Scene
 from .data_loader import DataLoader
+import glm
+
 
 
 class GraphicsEngine:
@@ -54,19 +56,62 @@ class GraphicsEngine:
         self.dataloader.get_num_frames()
         self.frame = 1
 
+        # pause the scene
+        self.paused = False
+
+        #camera dron
+        self.dron = False
+
+        # camera mister
+        self.mister = False
+        
+        # camera espectator
+        self.espectator = False
+
+        # camera backgrounds
+        self.before = False
+
+
     def check_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 self.mesh.destroy()
                 pg.quit()
                 sys.exit()
+            
+            elif event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
+                self.paused = not self.paused
+
+            elif event.type == pg.KEYDOWN and event.key == pg.K_p:
+                self.dron = not self.dron
+                self.espectator = False
+                self.mister = False
+            
+            elif event.type == pg.KEYDOWN and event.key == pg.K_m:
+                self.mister = not self.mister
+                self.espectator = False
+                self.dron = False
+            
+            elif event.type == pg.KEYDOWN and event.key == pg.K_e:
+                self.espectator = not self.espectator
+                self.mister = False
+                self.dron = False
+                
+            
+            elif event.type == pg.KEYDOWN and event.key == pg.K_z:
+                self.paused = not self.paused if self.paused == True else self.paused
+                self.before = not self.before
+    
 
     def update_frame_id(self):
         self.frame += 1
         if self.frame > self.dataloader.num_frames:
             self.frame = 1
-        print("Numero de frames totales:", self.dataloader.num_frames)
-        print("Numero de frame:", self.frame)
+    
+    def update_before_frame_id(self):
+        self.frame -= 1
+        if self.frame < 1:
+            self.frame = 1
 
     def render(self):
         self.get_time()
@@ -76,16 +121,14 @@ class GraphicsEngine:
         data = self.dataloader.get_frame_information(frames_id=self.frame)
         # render scene
         self.scene.render(data)
-        print(self.frame)
         # swap buffers
         pg.display.flip()
-        if (self.time - self.delta_time) > 0.1:
+        if (self.time - self.delta_time) > 0.1 and not self.paused:
             self.delta_time = self.time
-            self.update_frame_id()
-        print(self.frame)
-        print(self.time)
-        print(self.delta_time)
-        print("End Iter")
+            if not self.before:
+                self.update_frame_id()
+            else:
+                self.update_before_frame_id()
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
@@ -94,6 +137,25 @@ class GraphicsEngine:
         while True:
             self.get_time()
             self.check_events()
+            if self.dron:
+                self.camera.position = glm.vec3(50,30,27.5)
+                self.camera.yaw = 0
+                self.camera.pitch = -35  
+            
+            if self.mister:
+                self.camera.position = glm.vec3(30,3.5,0)
+                self.camera.yaw = 13 
+                self.camera.pitch =0  
+
+
+            if self.espectator:
+                self.camera.position = glm.vec3(80,18,70)
+                self.camera.yaw = -82
+                self.camera.pitch = -25  
+
+
             self.camera.update()
             self.render()
-            #self.delta_time = self.clock.tick(60)
+
+
+    

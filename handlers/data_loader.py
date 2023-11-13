@@ -24,4 +24,4 @@ class DataLoader():
         return self.data[self.data['frameId'] == frames_id]
 
     def load_example(self):
-        self.data = pd.read_csv('data/example.csv')
+        self.data = pd.read_csv('data/exemple1.csv')
