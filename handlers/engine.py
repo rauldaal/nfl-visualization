@@ -83,7 +83,7 @@ class GraphicsEngine:
         if (self.time - self.delta_time) > 0.1:
             self.delta_time = self.time
             self.update_frame_id()
-        print(self.frame)
+        # print(self.frame)
         # print(self.time)
         # print(self.delta_time)
         # print("End Iter")

@@ -26,6 +26,5 @@ class Player_Visitant(Objects):
         reset_move = (-self.pos[0], -self.pos[1], -self.pos[2])
         m_model = glm.translate(self.m_model, reset_move)
         self.m_model = glm.translate(m_model, pos)
-        self.m_model = m_model
         self.pos = pos
         super().update()
