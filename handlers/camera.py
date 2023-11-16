@@ -2,7 +2,7 @@ import glm
 import pygame as pg
 
 FOV = 50  # deg
-NEAR = 0.1
+NEAR = 0.5
 FAR = 500
 SPEED = 0.06
 SENSITIVITY = 0.04
@@ -16,8 +16,8 @@ class Camera:
         self.up = glm.vec3(0, 1, 0)
         self.right = glm.vec3(1, 0, 0)
         self.forward = glm.vec3(0, 0, -1)
-        self.yaw = yaw # orientacio
-        self.pitch = pitch # inclinacio
+        self.yaw = yaw  # orientacio
+        self.pitch = pitch  # inclinacio
         # view matrix
         self.m_view = self.get_view_matrix()
         # projection matrix
@@ -67,21 +67,3 @@ class Camera:
 
     def get_projection_matrix(self):
         return glm.perspective(glm.radians(FOV), self.aspect_ratio, NEAR, FAR)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
