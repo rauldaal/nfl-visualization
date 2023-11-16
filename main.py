@@ -7,11 +7,10 @@ class App():
         self.app = GraphicsEngine()
 
     def run(self, config_file='config.yml'):
-        with open(config_file, "r") as f:
-            configurations = yaml.load(f.readlines())
+        self.app.run()
         
 
-    def load_Data(self):
+    def load_data(self):
         pass
 
     def load_objects(self):
