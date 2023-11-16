@@ -1,5 +1,15 @@
-from objects import Porteria_Visitant, Porteria_Local, Player_Local, Player_Visitant, Field, Grada, Ball, Stadium
-import numpy as np
+from objects import (
+    Porteria_Visitant,
+    Porteria_Local,
+    Player_Local,
+    Player_Visitant,
+    Field,
+    Grada,
+    Ball,
+    Stadium,
+    Person,
+    )
+
 
 
 class Scene:
@@ -30,8 +40,6 @@ class Scene:
         add(Stadium(app, pos=(61, 0, 27.5)))
         add(Field(app, pos=(61, 0, 27.5), rot=(0, 0, 0)))
         add(Ball(app, pos=(ball_pos_x, 2, ball_pos_y)))
-        
-
         x = 0
         angle = 0
         for i in range(11):
@@ -41,8 +49,8 @@ class Scene:
                 x = players_local.iloc[i]['x']
                 z = players_local.iloc[i]['y']
                 angle = players_local.iloc[i]['dir']
-            add(Player_Local(app, pos=(x, 0.5, z), rot=(-90, angle, 0)))
-            jugadors.append((x,2.5,z))
+            add(Player_Local(app, pos=(x, 0.2, z), rot=(-90, angle, 0)))
+            jugadors.append((x, 2.5, z))
 
 
         x=0
@@ -54,16 +62,13 @@ class Scene:
                 x = players_visitor.iloc[i]['x']
                 z = players_visitor.iloc[i]['y']
                 angle = players_local.iloc[i]['dir']
-            add(Player_Visitant(app, pos=(x, 0.5, z), rot=(-90, angle, 0)))
-            jugadors.append((x,2.5,z))
+            add(Player_Visitant(app, pos=(x, 0.2, z), rot=(-90, angle, 0)))
+            jugadors.append((x, 2.5, z))
 
-
-
-        #porterias
         add(Porteria_Local(app, pos=(0, 0, 27.5), rot=(0, 0, 0)))
 
-        #porterias
         add(Porteria_Visitant(app, pos=(122, 0, 27.5), rot=(0, 180, 0)))
+        add(Person(app, pos=(30, 0.2, 0)))
 
         x=0
         n = 20

@@ -40,7 +40,9 @@ class VAO:
         self.vaos['stadium'] = self.get_vao(
             program=self.program.programs['default'],
             vbo=self.vbo.vbos['stadium'])
-
+        self.vaos['hc'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['hc'])
 
     def get_vao(self, program, vbo):
         vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attribs)])
