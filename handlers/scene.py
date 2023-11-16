@@ -41,7 +41,7 @@ class Scene:
                 x = players_local.iloc[i]['x']
                 z = players_local.iloc[i]['y']
                 angle = players_local.iloc[i]['dir']
-            add(Player_Local(app, pos=(x, 0, z), rot=(-90, angle, 0)))
+            add(Player_Local(app, pos=(x, 0.5, z), rot=(-90, angle, 0)))
             jugadors.append((x,2.5,z))
 
 
@@ -54,7 +54,7 @@ class Scene:
                 x = players_visitor.iloc[i]['x']
                 z = players_visitor.iloc[i]['y']
                 angle = players_local.iloc[i]['dir']
-            add(Player_Visitant(app, pos=(x, 0, z), rot=(-90, angle, 0)))
+            add(Player_Visitant(app, pos=(x, 0.5, z), rot=(-90, angle, 0)))
             jugadors.append((x,2.5,z))
 
 
