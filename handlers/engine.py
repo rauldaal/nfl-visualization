@@ -71,6 +71,12 @@ class GraphicsEngine:
         # camera backgrounds
         self.before = False
 
+        # camera player
+        self.player = False
+        
+        # camera change player
+        self.jugador = 0
+
 
     def check_events(self):
         for event in pg.event.get():
@@ -82,20 +88,36 @@ class GraphicsEngine:
             elif event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 self.paused = not self.paused
 
-            elif event.type == pg.KEYDOWN and event.key == pg.K_p:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_o:
                 self.dron = not self.dron
                 self.espectator = False
                 self.mister = False
+                self.player = False
             
             elif event.type == pg.KEYDOWN and event.key == pg.K_m:
                 self.mister = not self.mister
                 self.espectator = False
                 self.dron = False
+                self.player = False
             
             elif event.type == pg.KEYDOWN and event.key == pg.K_e:
                 self.espectator = not self.espectator
                 self.mister = False
                 self.dron = False
+                self.player = False
+            
+            elif event.type == pg.KEYDOWN and event.key == pg.K_p: # si aixo esta apretat que al clicar al enter puguis anar saltant de jugadors fins al que vulguis
+                self.player = not self.player
+                self.mister = False
+                self.dron = False
+                self.espectator = False
+            
+            elif event.type == pg.KEYDOWN and event.key == pg.K_c:
+                if self.player:
+                    self.jugador += 1
+                    if self.jugador > 21:
+                        self.jugador = 0
+
                 
             
             elif event.type == pg.KEYDOWN and event.key == pg.K_z:
@@ -120,7 +142,10 @@ class GraphicsEngine:
         # get new data
         data = self.dataloader.get_frame_information(frames_id=self.frame)
         # render scene
-        self.scene.render(data)
+        jugadors = self.scene.render(data)  #aqui agafo les dades
+        if self.player:
+            jugadors = jugadors[self.jugador]
+            self.camera.position = glm.vec3(jugadors[0], jugadors[1], jugadors[2]) #aqui vaig actualitzant la info de la posicio de la camera
         # swap buffers
         pg.display.flip()
         if (self.time - self.delta_time) > 0.1 and not self.paused:
@@ -152,7 +177,6 @@ class GraphicsEngine:
                 self.camera.position = glm.vec3(80,18,70)
                 self.camera.yaw = -82
                 self.camera.pitch = -25  
-
 
             self.camera.update()
             self.render()

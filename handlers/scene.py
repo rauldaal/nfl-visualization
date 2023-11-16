@@ -12,6 +12,7 @@ class Scene:
         self.objects.append(obj)
 
     def load(self, data=None):
+        jugadors = []
         app = self.app
         add = self.add_object
 
@@ -41,6 +42,8 @@ class Scene:
                 z = players_local.iloc[i]['y']
                 angle = players_local.iloc[i]['dir']
             add(Player_Local(app, pos=(x, 0, z), rot=(-90, angle, 0)))
+            jugadors.append((x,2.5,z))
+
 
         x=0
         angle = 0
@@ -52,6 +55,8 @@ class Scene:
                 z = players_visitor.iloc[i]['y']
                 angle = players_local.iloc[i]['dir']
             add(Player_Visitant(app, pos=(x, 0, z), rot=(-90, angle, 0)))
+            jugadors.append((x,2.5,z))
+
 
 
         #porterias
@@ -59,16 +64,6 @@ class Scene:
 
         #porterias
         add(Porteria_Visitant(app, pos=(122, 0, 27.5), rot=(0, 180, 0)))
-        '''
-
-         x=0
-        for i in range(50):                
-            add(Grada(app, pos= (20,0,x)))
-            if i%2==0:
-                x+=1.5*(i+1)
-            else:
-                x-=1.5*(i+1)
-        '''
 
         x=0
         n = 20
@@ -83,9 +78,11 @@ class Scene:
             x=0
             n+=2
             y+=0.5
+        return jugadors
 
     def render(self, data=None):
         self.objects = []
-        self.load(data)
+        jugadors = self.load(data)
         for obj in self.objects:
             obj.render()
+        return jugadors
