@@ -14,7 +14,7 @@ class Texture:
         self.textures['grada'] = self.get_texture(path='textures/GradaEscalera_3B.jpg')
         self.textures['ball'] = self.get_texture(path='textures/kahverengi.png')
         self.textures['stadium'] = self.get_texture(path='textures/beyaz.png')
-        self.textures['hc'] = self.get_texture(path='textures/kahverengi.png')
+        self.textures['hc'] = self.get_texture(path='textures/coach.png')
         self.textures['stats'] = self.get_texture(path='textures/aaa.jpeg')
 
     def get_texture(self, path):
