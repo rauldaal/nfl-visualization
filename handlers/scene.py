@@ -8,6 +8,7 @@ from objects import (
     Ball,
     Stadium,
     Person,
+    stats
     )
 
 
@@ -83,6 +84,15 @@ class Scene:
             x=0
             n+=2
             y+=0.5
+            
+        p = self.app.camera.position
+        offset = (1.9, 1.2, -4)  
+        pos_objeto = (
+            0.0 + offset[0],
+            0.0 + offset[1],
+            0.0 + offset[2]
+        )
+        add(stats.Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2])))
         return jugadors
 
     def render(self, data=None):

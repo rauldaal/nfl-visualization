@@ -55,25 +55,19 @@ class GraphicsEngine:
         self.dataloader.load_example()
         self.dataloader.get_num_frames()
         self.frame = 1
-
+        
         # pause the scene
         self.paused = False
-
         #camera dron
         self.dron = False
-
         # camera mister
-        self.mister = False
-        
+        self.mister = False    
         # camera espectator
         self.espectator = False
-
         # camera backgrounds
         self.before = False
-
         # camera player
         self.player = False
-        
         # camera change player
         self.jugador = 0
 
@@ -124,7 +118,6 @@ class GraphicsEngine:
                 self.paused = not self.paused if self.paused == True else self.paused
                 self.before = not self.before
     
-
     def update_frame_id(self):
         self.frame += 1
         if self.frame > self.dataloader.num_frames:
@@ -162,22 +155,19 @@ class GraphicsEngine:
         while True:
             self.get_time()
             self.check_events()
+            # pg.display.set_caption('image')
             if self.dron:
                 self.camera.position = glm.vec3(50,30,27.5)
                 self.camera.yaw = 0
                 self.camera.pitch = -35  
-            
             if self.mister:
                 self.camera.position = glm.vec3(30,3.5,0)
                 self.camera.yaw = 13 
                 self.camera.pitch =0  
-
-
             if self.espectator:
                 self.camera.position = glm.vec3(80,18,70)
                 self.camera.yaw = -82
                 self.camera.pitch = -25  
-
             self.camera.update()
             self.render()
 
