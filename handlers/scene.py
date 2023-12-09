@@ -10,6 +10,7 @@ from objects import (
     Person,
     Referee,
     Stats,
+    Fans,
     )
 
 
@@ -74,6 +75,10 @@ class Scene:
         add(Referee(app, pos=(110, 0.2, 56), rot=(0, 180, 0)))
         add(Referee(app, pos=(112, 0.2, 0), rot=(0, 0, 0)))
         add(Referee(app, pos=(90, 0.2, 10), rot=(0, 0, 0)))
+        add(Fans(app, pos=(60, 26.5, 80), rot=(0, 0, 0), scale=(0.6, 1, 0.8)))
+        add(Fans(app, pos=(60, 26.5, -30), rot=(0, 180, 0), scale=(0.6, 1, 0.8)))
+        add(Fans(app, pos=(147, 26.5, 30), rot=(30, 90, 0), scale=(0.3, 1, 0.2)))
+        add(Fans(app, pos=(-24, 26.5, 30), rot=(30, 90+180, 0), scale=(0.25, 1, 0.2)))
 
         x=0
         n = 20
@@ -96,7 +101,7 @@ class Scene:
             0.0 + offset[1],
             0.0 + offset[2]
         )
-        add(stats.Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2])))
+        add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2])))
         return jugadors
 
     def render(self, data=None):

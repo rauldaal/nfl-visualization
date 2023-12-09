@@ -13,10 +13,11 @@ class Texture:
         self.textures['porteria_visitant'] = self.get_texture(path='textures/post.jpg')
         self.textures['grada'] = self.get_texture(path='textures/GradaEscalera_3B.jpg')
         self.textures['ball'] = self.get_texture(path='textures/kahverengi.png')
-        self.textures['stadium'] = self.get_texture(path='textures/beyaz.png')
+        self.textures['stadium'] = self.get_texture(path='textures/stadium_base.png')
         self.textures['hc'] = self.get_texture(path='textures/coach.png')
         self.textures['referee'] = self.get_texture(path='textures/referee.png')
         self.textures['stats'] = self.get_texture(path='textures/aaa.jpeg')
+        self.textures['fans'] = self.get_texture(path='textures/fans.jpg')
 
     def get_texture(self, path):
         texture = pg.image.load(path).convert()
