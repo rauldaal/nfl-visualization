@@ -15,6 +15,7 @@ class VBO:
         self.vbos['ball'] = BallVBO(ctx)
         self.vbos['stadium'] = Stadium(ctx)
         self.vbos['hc'] = Person(ctx)
+        self.vbos['referee'] = Person(ctx)
 
     def destroy(self):
         [vbo.destroy() for vbo in self.vbos.values()]

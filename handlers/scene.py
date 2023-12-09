@@ -8,6 +8,7 @@ from objects import (
     Ball,
     Stadium,
     Person,
+    Referee,
     )
 
 
@@ -69,6 +70,9 @@ class Scene:
 
         add(Porteria_Visitant(app, pos=(122, 0, 27.5), rot=(0, 180, 0)))
         add(Person(app, pos=(30, 0.2, 0)))
+        add(Referee(app, pos=(110, 0.2, 56), rot=(0, 180, 0)))
+        add(Referee(app, pos=(112, 0.2, 0), rot=(0, 0, 0)))
+        add(Referee(app, pos=(90, 0.2, 10), rot=(0, 0, 0)))
 
         x=0
         n = 20

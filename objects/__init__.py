@@ -5,3 +5,4 @@ from .grada import Grada
 from .ball import Ball
 from .stadium import Stadium
 from .person import Person
+from .person import Referee
