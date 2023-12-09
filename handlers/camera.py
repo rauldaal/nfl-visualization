@@ -41,8 +41,8 @@ class Camera:
         self.up = glm.normalize(glm.cross(self.right, self.forward))
 
     def update(self):
-        self.move()
         self.rotate()
+        self.move()
         self.update_camera_vectors()
         self.m_view = self.get_view_matrix()
 
