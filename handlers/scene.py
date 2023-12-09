@@ -11,7 +11,8 @@ from objects import (
     Referee,
     Stats,
     Fans,
-    Cocacola
+    Cocacola,
+    Point,
     )
 
 
@@ -25,7 +26,7 @@ class Scene:
     def add_object(self, obj):
         self.objects.append(obj)
 
-    def load(self, data=None):
+    def load(self, data=None, prev_data=None):
         jugadors = []
         app = self.app
         add = self.add_object
@@ -107,11 +108,19 @@ class Scene:
             0.0 + offset[2]
         )
         add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2])))
+        
+        if prev_data is not None:
+            for i in range(len(prev_data)):
+                x = prev_data.iloc[i]['x']
+                z = prev_data.iloc[i]['y']
+                add(Point(app, pos=(x, 0.3, z), rot=(0, 0, 0)))
+
+
         return jugadors
 
-    def render(self, data=None):
+    def render(self, data=None, prev_data=None):
         self.objects = []
-        jugadors = self.load(data)
+        jugadors = self.load(data, prev_data)
         for obj in self.objects:
             obj.render()
         return jugadors
