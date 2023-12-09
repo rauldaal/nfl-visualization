@@ -11,6 +11,7 @@ from objects import (
     Referee,
     Stats,
     Fans,
+    Cocacola
     )
 
 
@@ -79,6 +80,10 @@ class Scene:
         add(Fans(app, pos=(60, 27.5, -30), rot=(0, 180, 0), scale=(0.6, 1, 0.8)))
         add(Fans(app, pos=(147, 27.5, 30), rot=(30, 90, 0), scale=(0.3, 1, 0.2)))
         add(Fans(app, pos=(-24, 27.5, 30), rot=(30, 90+180, 0), scale=(0.25, 1, 0.2)))
+        
+        add(Cocacola(app, pos=(-20, 47,-20), scale=(0.5, 0.5, 0.5), rot=(0, 45, 0)))
+        add(Cocacola(app, pos=(143, 45, 75), scale=(0.45, 0.45, 0.45), rot=(0, 225, 0)))
+
 
         x=0
         n = 20

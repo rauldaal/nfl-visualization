@@ -18,6 +18,7 @@ class Texture:
         self.textures['referee'] = self.get_texture(path='textures/referee.png')
         self.textures['stats'] = self.get_texture(path='textures/aaa.jpeg')
         self.textures['fans'] = self.get_texture(path='textures/fans.jpg')
+        self.textures['cocacola'] = self.get_texture(path='textures/cocacola.jpeg')
 
     def get_texture(self, path):
         texture = pg.image.load(path).convert()

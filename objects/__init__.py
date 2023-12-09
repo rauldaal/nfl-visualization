@@ -8,3 +8,4 @@ from .stadium import Stadium
 from .stats import Stats
 from .person import Person
 from .person import Referee
+from .cocacola import Cocacola
