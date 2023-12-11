@@ -30,6 +30,7 @@ class GraphicsEngine:
         self.jugador = 0
         # estadisticas
         self.estadisticas = False
+        self.show_path = False
         # init pygame modules
         pg.init()
         # window size
