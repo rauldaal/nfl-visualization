@@ -8,7 +8,11 @@ from objects import (
     Ball,
     Stadium,
     Person,
-    stats
+    Referee,
+    Stats,
+    Fans,
+    Cocacola,
+    Point,
     )
 
 
@@ -22,7 +26,7 @@ class Scene:
     def add_object(self, obj):
         self.objects.append(obj)
 
-    def load(self, data=None):
+    def load(self, data=None, prev_data=None):
         jugadors = []
         app = self.app
         add = self.add_object
@@ -70,6 +74,17 @@ class Scene:
 
         add(Porteria_Visitant(app, pos=(122, 0, 27.5), rot=(0, 180, 0)))
         add(Person(app, pos=(30, 0.2, 0)))
+        add(Referee(app, pos=(110, 0.2, 56), rot=(0, 180, 0)))
+        add(Referee(app, pos=(112, 0.2, 0), rot=(0, 0, 0)))
+        add(Referee(app, pos=(90, 0.2, 10), rot=(0, 0, 0)))
+        add(Fans(app, pos=(60, 27.5, 80), rot=(0, 0, 0), scale=(0.6, 1, 0.8)))
+        add(Fans(app, pos=(60, 27.5, -30), rot=(0, 180, 0), scale=(0.6, 1, 0.8)))
+        add(Fans(app, pos=(147, 27.5, 30), rot=(30, 90, 0), scale=(0.3, 1, 0.2)))
+        add(Fans(app, pos=(-24, 27.5, 30), rot=(30, 90+180, 0), scale=(0.25, 1, 0.2)))
+        
+        add(Cocacola(app, pos=(-20, 47,-20), scale=(0.5, 0.5, 0.5), rot=(0, 45, 0)))
+        add(Cocacola(app, pos=(143, 45, 75), scale=(0.45, 0.45, 0.45), rot=(0, 225, 0)))
+
 
         x=0
         n = 20
@@ -97,11 +112,17 @@ class Scene:
             pos_objeto = (offset[0], offset[1]-2.4, offset[2])
             add(stats.Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
                             scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats3'))
+        if prev_data is not None:
+            for i in range(len(prev_data)):
+                x = prev_data.iloc[i]['x']
+                z = prev_data.iloc[i]['y']
+                add(Point(app, pos=(x, 0.3, z), rot=(0, 0, 0)))
+
         return jugadors
 
-    def render(self, data=None):
+    def render(self, data=None, prev_data=None):
         self.objects = []
-        jugadors = self.load(data)
+        jugadors = self.load(data, prev_data)
         for obj in self.objects:
             obj.render()
         return jugadors

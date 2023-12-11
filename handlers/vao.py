@@ -43,6 +43,18 @@ class VAO:
         self.vaos['hc'] = self.get_vao(
             program=self.program.programs['default'],
             vbo=self.vbo.vbos['hc'])
+        self.vaos['referee'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['referee'])
+        self.vaos['fans'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['fans'])
+        self.vaos['cocacola'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['cocacola'])
+        self.vaos['point'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['point'])
 
     def get_vao(self, program, vbo):
         vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attribs)])

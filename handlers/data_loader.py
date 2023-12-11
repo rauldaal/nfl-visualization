@@ -23,5 +23,8 @@ class DataLoader():
     def get_frame_information(self, frames_id):
         return self.data[self.data['frameId'] == frames_id]
 
+    def get_prev_frame_information(self, frames_id):
+        return self.data[(self.data['frameId'] <= frames_id) & (self.data['frameId'] > frames_id-10)]
+
     def load_example(self):
         self.data = pd.read_csv('data/exemple1.csv')
