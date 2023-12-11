@@ -14,6 +14,22 @@ import glm
 
 class GraphicsEngine:
     def __init__(self, win_size=(1200, 780)):
+        # pause the scene
+        self.paused = False
+        #camera dron
+        self.dron = False
+        # camera mister
+        self.mister = False    
+        # camera espectator
+        self.espectator = False
+        # camera backgrounds
+        self.before = False
+        # camera player
+        self.player = False
+        # camera change player
+        self.jugador = 0
+        # estadisticas
+        self.estadisticas = False
         # init pygame modules
         pg.init()
         # window size
@@ -50,27 +66,9 @@ class GraphicsEngine:
             plays_df='data/plays.csv',
             week_df='data/allweeks.csv'
         )
-        #self.dataloader.get_game(game_id=2021090900)
-        #self.dataloader.get_play(play_id=2279)
         self.dataloader.load_example()
         self.dataloader.get_num_frames()
         self.frame = 1
-        
-        # pause the scene
-        self.paused = False
-        #camera dron
-        self.dron = False
-        # camera mister
-        self.mister = False    
-        # camera espectator
-        self.espectator = False
-        # camera backgrounds
-        self.before = False
-        # camera player
-        self.player = False
-        # camera change player
-        self.jugador = 0
-
 
     def check_events(self):
         for event in pg.event.get():
@@ -111,8 +109,9 @@ class GraphicsEngine:
                     self.jugador += 1
                     if self.jugador > 21:
                         self.jugador = 0
-
-                
+            
+            elif event.type == pg.KEYDOWN and event.key == pg.K_h:
+                self.estadisticas = not self.estadisticas                
             
             elif event.type == pg.KEYDOWN and event.key == pg.K_z:
                 self.paused = not self.paused if self.paused == True else self.paused

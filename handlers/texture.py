@@ -15,7 +15,9 @@ class Texture:
         self.textures['ball'] = self.get_texture(path='textures/kahverengi.png')
         self.textures['stadium'] = self.get_texture(path='textures/beyaz.png')
         self.textures['hc'] = self.get_texture(path='textures/coach.png')
-        self.textures['stats'] = self.get_texture(path='textures/aaa.jpeg')
+        self.textures['stats1'] = self.get_texture(path='textures/stat1.jpeg')
+        self.textures['stats2'] = self.get_texture(path='textures/stat2.jpeg')
+        self.textures['stats3'] = self.get_texture(path='textures/stat3.jpeg')
 
     def get_texture(self, path):
         texture = pg.image.load(path).convert()
