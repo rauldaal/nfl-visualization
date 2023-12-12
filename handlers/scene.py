@@ -13,6 +13,7 @@ from objects import (
     Fans,
     Cocacola,
     Point,
+    Menu,
     )
 
 
@@ -107,7 +108,12 @@ class Scene:
             0.0 + offset[1],
             0.0 + offset[2]
         )
-        add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2])))
+        if self.app.show_menu:
+            add(Menu(app, pos=(0,0,-15)))
+        else:
+            add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2])))
+
+
         
         if prev_data is not None:
             for i in range(len(prev_data)):

@@ -10,3 +10,4 @@ from .person import Person
 from .person import Referee
 from .cocacola import Cocacola
 from .point import Point
+from .menu import Menu
