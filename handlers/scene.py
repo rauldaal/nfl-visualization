@@ -86,7 +86,6 @@ class Scene:
         add(Cocacola(app, pos=(-20, 47,-20), scale=(0.5, 0.5, 0.5), rot=(0, 45, 0)))
         add(Cocacola(app, pos=(143, 45, 75), scale=(0.45, 0.45, 0.45), rot=(0, 225, 0)))
 
-
         x=0
         n = 20
         y = 0
@@ -111,16 +110,23 @@ class Scene:
         if self.app.show_menu:
             add(Menu(app, pos=(0,0,-15)))
         else:
-            add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2])))
-
-
-        
+            if self.app.estadisticas:
+                p = self.app.WIN_SIZE
+                s = p[0] / p[1]
+                offset = (p[0] * 0.00160, s * .80, -4)
+                add(Stats(app, pos=(offset[0],offset[1],offset[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats1'))
+                pos_objeto = (offset[0], offset[1]-1.2, offset[2])
+                add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats2'))
+                pos_objeto = (offset[0], offset[1]-2.4, offset[2])
+                add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats3'))
         if prev_data is not None:
             for i in range(len(prev_data)):
                 x = prev_data.iloc[i]['x']
                 z = prev_data.iloc[i]['y']
                 add(Point(app, pos=(x, 0.3, z), rot=(0, 0, 0)))
-
 
         return jugadors
 
