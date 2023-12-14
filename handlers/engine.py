@@ -9,6 +9,7 @@ from .mesh import Mesh
 from .scene import Scene
 from .data_loader import DataLoader
 import glm
+import pandas as pd
 
 
 
@@ -98,6 +99,10 @@ class GraphicsEngine:
         self.dataloader.load_example()
         self.dataloader.get_num_frames()
         self.frame = 1
+
+        self.prev_data = None
+        
+        self.voronoi = False
 
     def check_events(self):
         for event in pg.event.get():
@@ -196,6 +201,10 @@ class GraphicsEngine:
                 self.play = 0
 
  
+            elif event.type == pg.KEYDOWN and event.key == pg.K_v:
+                self.paused = not self.paused
+                self.voronoi = not self.voronoi
+                
     
     def update_frame_id(self):
         self.frame += 1
@@ -213,11 +222,18 @@ class GraphicsEngine:
         self.ctx.clear(color=(0.08, 0.16, 0.18))
         # get new data
         data = self.dataloader.get_frame_information(frames_id=self.frame)
-        prev_data = None
+
         if self.show_path:
-            prev_data=self.dataloader.get_prev_frame_information(frames_id=self.frame)
+            if self.frame == 1:
+                self.prev_data = None
+            if self.prev_data is None:
+                self.prev_data = data.copy()
+            else:
+                self.prev_data = pd.concat([self.prev_data, data])
+
+
         # render scene
-        jugadors = self.scene.render(data, prev_data)  #aqui agafo les dades
+        jugadors = self.scene.render(data, self.prev_data, voronoi=self.voronoi) #aqui agafo les dades
         if self.player:
             jugadors = jugadors[self.jugador]
             self.camera.position = glm.vec3(jugadors[0], jugadors[1], jugadors[2]) #aqui vaig actualitzant la info de la posicio de la camera

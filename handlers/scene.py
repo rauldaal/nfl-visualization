@@ -15,19 +15,20 @@ from objects import (
     Point,
     Menu,
     )
-
+from .stats_generator import Voronoi_Generator
 
 
 class Scene:
     def __init__(self, app):
         self.app = app
         self.objects = []
+        self.vg = Voronoi_Generator()
         self.load()
 
     def add_object(self, obj):
         self.objects.append(obj)
 
-    def load(self, data=None, prev_data=None):
+    def load(self, data=None, prev_data=None, voronoi=False):
         jugadors = []
         app = self.app
         add = self.add_object
@@ -85,22 +86,6 @@ class Scene:
         
         add(Cocacola(app, pos=(-20, 47,-20), scale=(0.5, 0.5, 0.5), rot=(0, 45, 0)))
         add(Cocacola(app, pos=(143, 45, 75), scale=(0.45, 0.45, 0.45), rot=(0, 225, 0)))
-
-        x=0
-        n = 20
-        y = 0
-        for p in range(0,8):
-            for i in range(50):                
-                add(Grada(app, pos= (-n,p,x)))
-                if i%2==0:
-                    x+=1.5*(i+1)
-                else:
-                    x-=1.5*(i+1)
-            x=0
-            n+=2
-            y+=0.5
-            
-        p = self.app.camera.position
         offset = (1.9, 1.2, -4)  
         pos_objeto = (
             0.0 + offset[0],
@@ -128,11 +113,17 @@ class Scene:
                 z = prev_data.iloc[i]['y']
                 add(Point(app, pos=(x, 0.3, z), rot=(0, 0, 0)))
 
+        if voronoi:
+            
+            self.vg.compute_voronoi(data=data, frame=self.app.frame)
+            self.app.mesh.add_voronoi_texture()
+            add(Field(app, pos=(61, 0.1, 27.5), rot=(0, 180, 0), vao_name='voronoi', tex_id='voronoi'))
+
         return jugadors
 
-    def render(self, data=None, prev_data=None):
+    def render(self, data=None, prev_data=None, voronoi=False):
         self.objects = []
-        jugadors = self.load(data, prev_data)
+        jugadors = self.load(data, prev_data, voronoi=voronoi)
         for obj in self.objects:
             obj.render()
         return jugadors

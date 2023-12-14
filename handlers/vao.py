@@ -55,6 +55,9 @@ class VAO:
         self.vaos['point'] = self.get_vao(
             program=self.program.programs['default'],
             vbo=self.vbo.vbos['point'])
+        self.vaos['voronoi'] = self.get_vao(
+            program=self.program.programs['default'],
+            vbo=self.vbo.vbos['voronoi'])
 
     def get_vao(self, program, vbo):
         vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attribs)])

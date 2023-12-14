@@ -19,6 +19,7 @@ class VBO:
         self.vbos['fans'] = Fans(ctx)
         self.vbos['cocacola'] = Cocacola(ctx)
         self.vbos['point'] = Point(ctx)
+        self.vbos['voronoi'] = Field(ctx)
 
     def destroy(self):
         [vbo.destroy() for vbo in self.vbos.values()]
