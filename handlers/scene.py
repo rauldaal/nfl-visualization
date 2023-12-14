@@ -85,19 +85,19 @@ class Scene:
         add(Cocacola(app, pos=(-20, 47,-20), scale=(0.5, 0.5, 0.5), rot=(0, 45, 0)))
         add(Cocacola(app, pos=(143, 45, 75), scale=(0.45, 0.45, 0.45), rot=(0, 225, 0)))
 
-        x=0
-        n = 20
-        y = 0
-        for p in range(0,8):
-            for i in range(50):                
-                add(Grada(app, pos= (-n,p,x)))
-                if i%2==0:
-                    x+=1.5*(i+1)
-                else:
-                    x-=1.5*(i+1)
-            x=0
-            n+=2
-            y+=0.5
+        # x=0
+        # n = 20
+        # y = 0
+        # for p in range(0,8):
+        #     for i in range(50):                
+        #         add(Grada(app, pos= (-n,p,x)))
+        #         if i%2==0:
+        #             x+=1.5*(i+1)
+        #         else:
+        #             x-=1.5*(i+1)
+        #     x=0
+        #     n+=2
+        #     y+=0.5
             
         if self.app.estadisticas:
             p = self.app.WIN_SIZE
