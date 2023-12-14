@@ -13,6 +13,7 @@ from objects import (
     Fans,
     Cocacola,
     Point,
+    Menu,
     )
 
 
@@ -99,18 +100,28 @@ class Scene:
         #     n+=2
         #     y+=0.5
             
-        if self.app.estadisticas:
-            p = self.app.WIN_SIZE
-            s = p[0] / p[1]
-            offset = (p[0] * 0.00160, s * .80, -4)
-            add(Stats(app, pos=(offset[0],offset[1],offset[2]),
-                            scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats1'))
-            pos_objeto = (offset[0], offset[1]-1.2, offset[2])
-            add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
-                            scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats2'))
-            pos_objeto = (offset[0], offset[1]-2.4, offset[2])
-            add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
-                            scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats3'))
+        p = self.app.camera.position
+        offset = (1.9, 1.2, -4)  
+        pos_objeto = (
+            0.0 + offset[0],
+            0.0 + offset[1],
+            0.0 + offset[2]
+        )
+        if self.app.show_menu:
+            add(Menu(app, pos=(0,0,-15)))
+        else:
+            if self.app.estadisticas:
+                p = self.app.WIN_SIZE
+                s = p[0] / p[1]
+                offset = (p[0] * 0.00160, s * .80, -4)
+                add(Stats(app, pos=(offset[0],offset[1],offset[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats1'))
+                pos_objeto = (offset[0], offset[1]-1.2, offset[2])
+                add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats2'))
+                pos_objeto = (offset[0], offset[1]-2.4, offset[2])
+                add(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats3'))
         if prev_data is not None:
             for i in range(len(prev_data)):
                 x = prev_data.iloc[i]['x']

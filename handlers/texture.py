@@ -22,6 +22,7 @@ class Texture:
         self.textures['fans'] = self.get_texture(path='textures/fans.jpg')
         self.textures['cocacola'] = self.get_texture(path='textures/cocacola.jpeg')
         self.textures['point'] = self.get_texture(path='textures/darkblue.jpg')
+        self.textures['menu'] = self.get_texture(path= 'textures/textura_menu.png')
 
     def get_texture(self, path):
         texture = pg.image.load(path).convert()

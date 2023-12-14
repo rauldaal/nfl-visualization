@@ -56,10 +56,37 @@ class GraphicsEngine:
         self.light = Light()
         # camera
         self.camera = Camera(self)
+        self.camera.position = glm.vec3(100000000,100000000,100000000)
         # mesh
         self.mesh = Mesh(self)
+
+        # pause the scene
+        self.paused = False
+        #camera dron
+        self.dron = False
+        # camera mister
+        self.mister = False    
+        # camera espectator
+        self.espectator = False
+        # camera backgrounds
+        self.before = False
+        # camera player
+        self.player = False
+        # camera change player
+        self.jugador = 0
+        # show path
+        self.show_path = False
+        # show menu
+        self.show_menu = True
         # scene
         self.scene = Scene(self)
+        # num_play
+        # 0 --> id 39974
+        # 9 --> id 2441
+        # 8 --> id 3014
+        # 7 --> id 1319
+        # 6 --> id 1319
+        self.play = 0 
 
         #data loader
         self.dataloader = DataLoader(
@@ -67,6 +94,7 @@ class GraphicsEngine:
             plays_df='data/plays.csv',
             week_df='data/allweeks.csv'
         )
+
         self.dataloader.load_example()
         self.dataloader.get_num_frames()
         self.frame = 1
@@ -78,48 +106,96 @@ class GraphicsEngine:
                 pg.quit()
                 sys.exit()
             
-            elif event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_SPACE and not self.show_menu:
                 self.paused = not self.paused
 
-            elif event.type == pg.KEYDOWN and event.key == pg.K_o:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_o and not self.show_menu:
                 self.dron = not self.dron
                 self.espectator = False
                 self.mister = False
                 self.player = False
             
-            elif event.type == pg.KEYDOWN and event.key == pg.K_m:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_m and not self.show_menu:
                 self.mister = not self.mister
                 self.espectator = False
                 self.dron = False
                 self.player = False
             
-            elif event.type == pg.KEYDOWN and event.key == pg.K_e:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_e and not self.show_menu:
                 self.espectator = not self.espectator
                 self.mister = False
                 self.dron = False
                 self.player = False
             
-            elif event.type == pg.KEYDOWN and event.key == pg.K_p: # si aixo esta apretat que al clicar al enter puguis anar saltant de jugadors fins al que vulguis
+            elif event.type == pg.KEYDOWN and event.key == pg.K_p and not self.show_menu: # si aixo esta apretat que al clicar al enter puguis anar saltant de jugadors fins al que vulguis
                 self.player = not self.player
                 self.mister = False
                 self.dron = False
                 self.espectator = False
             
-            elif event.type == pg.KEYDOWN and event.key == pg.K_c:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_c and not self.show_menu:
                 if self.player:
                     self.jugador += 1
                     if self.jugador > 21:
-                        self.jugador = 0
-            
-            elif event.type == pg.KEYDOWN and event.key == pg.K_h:
+                        self.jugador = 0            
+            elif event.type == pg.KEYDOWN and event.key == pg.K_h and not self.show_menu:
                 self.estadisticas = not self.estadisticas                
             
-            elif event.type == pg.KEYDOWN and event.key == pg.K_z:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_z and not self.show_menu:
                 self.paused = not self.paused if self.paused == True else self.paused
                 self.before = not self.before
             
-            elif event.type == pg.KEYDOWN and event.key == pg.K_1:
+            elif event.type == pg.KEYDOWN and event.key == pg.K_1 and not self.show_menu:
                 self.show_path = not self.show_path
+
+            elif event.type == pg.KEYDOWN and event.key == pg.K_0:
+                self.show_menu = not self.show_menu
+                if self.show_menu:
+                    self.camera.position = glm.vec3(100000000,100000000,100000000)
+                    self.dron = False
+                    self.mister = False
+                    self.dron = False
+                    self.espectator = False
+                    self.player = False
+                else:
+                    self.dron = True
+            elif event.type == pg.KEYDOWN and event.key == pg.K_9 and self.show_menu:
+                self.dataloader.load_example(2441)
+                self.dataloader.get_num_frames()
+                self.frame = 1
+                self.show_menu = False
+                self.dron = True
+                self.play = 9
+            elif event.type == pg.KEYDOWN and event.key == pg.K_8 and self.show_menu:
+                self.dataloader.load_example(3014)
+                self.dataloader.get_num_frames()
+                self.frame = 1
+                self.show_menu = False
+                self.dron = True
+                self.play = 8
+            elif event.type == pg.KEYDOWN and event.key == pg.K_7 and self.show_menu:
+                self.dataloader.load_example(1319)
+                self.dataloader.get_num_frames()
+                self.frame = 1
+                self.show_menu = False
+                self.dron = True
+                self.play = 7
+            elif event.type == pg.KEYDOWN and event.key == pg.K_6 and self.show_menu:
+                self.dataloader.load_example(97)
+                self.dataloader.get_num_frames()
+                self.frame = 1
+                self.show_menu = False
+                self.dron = True
+                self.play = 6
+            elif event.type == pg.KEYDOWN and event.key == pg.K_5 and self.show_menu:
+                self.dataloader.load_example()
+                self.dataloader.get_num_frames()
+                self.frame = 1
+                self.show_menu = False
+                self.dron = True
+                self.play = 0
+
+ 
     
     def update_frame_id(self):
         self.frame += 1
@@ -156,6 +232,11 @@ class GraphicsEngine:
 
     def get_time(self):
         self.time = pg.time.get_ticks() * 0.001
+    
+    def get_camera(self,x,y,z,yaw,pitch):
+        self.camera.position = glm.vec3(x,y,z)
+        self.camera.yaw = yaw
+        self.camera.pitch = pitch
 
     def run(self):
         while True:
@@ -163,17 +244,27 @@ class GraphicsEngine:
             self.check_events()
             # pg.display.set_caption('image')
             if self.dron:
-                self.camera.position = glm.vec3(50,30,27.5)
-                self.camera.yaw = 0
-                self.camera.pitch = -35  
+                if self.play == 0:
+                    self.get_camera(50,30,27.5,0,-35)  
+                else:
+                    self.get_camera(95,30,27.5,180,-35)
+
             if self.mister:
-                self.camera.position = glm.vec3(30,3.5,0)
-                self.camera.yaw = 13 
-                self.camera.pitch =0  
+                if self.play == 0:
+                    self.get_camera(30,3.5,0,13,0)
+                elif self.play == 9 or self.play==7:
+                    self.get_camera(30,3.5,0,45,0)
+                elif self.play == 8:
+                    self.get_camera(30,3.5,0,90,0)
+                else:
+                    self.get_camera(30,3.5,0,52,0)
+
             if self.espectator:
-                self.camera.position = glm.vec3(80,18,70)
-                self.camera.yaw = -82
-                self.camera.pitch = -25  
+                if self.play == 0:
+                    self.get_camera(80,35,70,-75,-45)
+                else:
+                    self.get_camera(80,35,70,-125,-38)
+
             self.camera.update()
             self.render()
 
