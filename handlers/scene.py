@@ -103,14 +103,16 @@ class Scene:
 
         return jugadors
 
-    def render(self, data=None, prev_data=None, voronoi=False):
-        offset = (1.9, 1.2, -4)  
+    def render(self, data=None, prev_data=None, voronoi=False):       
+        offset = (1.9, 1.2, -4)
         jugadors = []
         pos_objeto = (offset[0], offset[1], offset[2])
+        # Menu
         if self.app.show_menu:
             m = Menu(self.app, pos=(0,0,-15))
             m.render()
         else:
+            # Estadisticas
             if self.app.estadisticas:
                 p = self.app.WIN_SIZE
                 s = p[0] / p[1]
@@ -126,8 +128,10 @@ class Scene:
                 s1.render()
                 s2.render()
                 s3.render()
+            # Render static objects
             for obj in self.static_objects:
                 obj.render()
+            # Render players + points
             for player_id in data['nflId']:
                 if isnan(player_id):
                     continue
@@ -136,9 +140,12 @@ class Scene:
                 angle = data[data['nflId'] == player_id]['dir']
                 player_id = str(int(player_id))
                 player = self.moving_objects[player_id]
-                player.move(x, z, angle)
+                if self.app.frame == 1:
+                    player.points = []
+                if not self.app.paused:
+                    player.move(x, z, angle)
+                    player.points.append((x, z))
                 player.render()
-                player.points.append((x, z))
                 if prev_data:
                     num_points = min(prev_data, len(player.points))
                     for point in player.points[-num_points:]:

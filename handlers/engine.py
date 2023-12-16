@@ -159,7 +159,7 @@ class GraphicsEngine:
                 self.before = not self.before
             
             elif event.type == pg.KEYDOWN and event.key == pg.K_1 and not self.show_menu:
-                self.show_path = 10 if self.show_path == False else False
+                self.show_path = 50 if self.show_path == False else False
 
             elif event.type == pg.KEYDOWN and event.key == pg.K_0:
                 self.show_menu = not self.show_menu
@@ -248,8 +248,6 @@ class GraphicsEngine:
         # if self.show_path:
             # prev_data=self.dataloader.get_prev_frame_information(frames_id=self.frame)
             # prev_data = 5
-        if self.frame == 1:
-            self.show_path = False
         # render scene
         jugadors = self.scene.render(data, self.show_path, voronoi=self.voronoi) #aqui agafo les dades
         if self.player:
