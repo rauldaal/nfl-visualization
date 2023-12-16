@@ -16,6 +16,7 @@ from objects import (
     Menu,
     )
 from math import isnan
+from .stats_generator import Voronoi_Generator
 
 
 class Scene:
@@ -24,12 +25,13 @@ class Scene:
         self.objects = []
         self.static_objects = []
         self.moving_objects = dict()
+        self.vg = Voronoi_Generator()
         self.load(data)
 
     def add_object(self, obj):
         self.objects.append(obj)
 
-    def load(self, data=None, prev_data=None):
+    def load(self, data=None, prev_data=None, voronoi=False):
         jugadors = []
         app = self.app
         add = self.add_object
@@ -105,13 +107,8 @@ class Scene:
         self.static_objects.append(Cocacola(app, pos=(-20, 47,-20), scale=(0.5, 0.5, 0.5), rot=(0, 45, 0)))
         self.static_objects.append(Cocacola(app, pos=(143, 45, 75), scale=(0.45, 0.45, 0.45), rot=(0, 225, 0)))
         
-        p = self.app.camera.position
         offset = (1.9, 1.2, -4)  
-        pos_objeto = (
-            0.0 + offset[0],
-            0.0 + offset[1],
-            0.0 + offset[2]
-        )
+        pos_objeto = (offset[0], offset[1], offset[2])
         if self.app.show_menu:
             add(Menu(app, pos=(0,0,-15)))
         else:
@@ -135,10 +132,8 @@ class Scene:
 
         return jugadors
 
-    def render(self, data=None, prev_data=None):
-        # self.objects = []
-        # jugadors = self.load(data, prev_data)
-        jugadors = []
+    def render(self, data=None, prev_data=None, voronoi=False):
+        self.objects = []
         for obj in self.static_objects:
             obj.render()
         for player_id in data['nflId']:
@@ -162,6 +157,8 @@ class Scene:
         ball_pos_y = data[data['nflId'].isna()]['y'].values[0]
         self.moving_objects['ball'].move(ball_pos_x, ball_pos_y)
         self.moving_objects['ball'].render()
-        # for obj in self.objects:
-        #     obj.render()
+        if voronoi:
+            self.vg.compute_voronoi(data=data, frame=self.app.frame)
+            self.app.mesh.add_voronoi_texture()
+            add(Field(app, pos=(61, 0.1, 27.5), rot=(0, 180, 0), vao_name='voronoi', tex_id='voronoi'))
         return jugadors

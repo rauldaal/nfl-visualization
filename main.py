@@ -8,7 +8,6 @@ class App():
 
     def run(self, config_file='config.yml'):
         self.app.run()
-        
 
     def load_data(self):
         pass

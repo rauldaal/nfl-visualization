@@ -9,6 +9,7 @@ from .mesh import Mesh
 from .scene import Scene
 from .data_loader import DataLoader
 import glm
+import pandas as pd
 
 
 
@@ -78,6 +79,15 @@ class GraphicsEngine:
         self.show_path = False
         # show menu
         self.show_menu = True
+        # num_play
+        # 0 --> id 39974
+        # 9 --> id 2441
+        # 8 --> id 3014
+        # 7 --> id 1319
+        # 6 --> id 1319
+        self.play = 0 
+        #voronoi
+        self.voronoi = False
 
         #data loader
         self.dataloader = DataLoader(
@@ -91,6 +101,7 @@ class GraphicsEngine:
         self.frame = 1
         
         data = self.dataloader.get_frame_information(frames_id=self.frame)
+        # scene
         self.scene = Scene(self, data)
         if (self.time - self.delta_time) > 0.1 and not self.paused:
             self.delta_time = self.time
@@ -98,14 +109,8 @@ class GraphicsEngine:
                 self.update_frame_id()
             else:
                 self.update_before_frame_id()
-        # scene
-        # num_play
-        # 0 --> id 39974
-        # 9 --> id 2441
-        # 8 --> id 3014
-        # 7 --> id 1319
-        # 6 --> id 1319
-        self.play = 0 
+        
+
 
     def check_events(self):
         for event in pg.event.get():
@@ -202,6 +207,12 @@ class GraphicsEngine:
                 self.show_menu = False
                 self.dron = True
                 self.play = 0
+
+ 
+            elif event.type == pg.KEYDOWN and event.key == pg.K_v:
+                self.paused = not self.paused
+                self.voronoi = not self.voronoi
+                
     
     def update_frame_id(self):
         self.frame += 1
@@ -223,8 +234,10 @@ class GraphicsEngine:
         # if self.show_path:
             # prev_data=self.dataloader.get_prev_frame_information(frames_id=self.frame)
             # prev_data = 5
+        if self.frame == 1:
+            self.show_path = False
         # render scene
-        jugadors = self.scene.render(data, self.show_path)  #aqui agafo les dades
+        jugadors = self.scene.render(data, self.self.show_path, voronoi=self.voronoi) #aqui agafo les dades
         if self.player:
             jugadors = jugadors[self.jugador]
             self.camera.position = glm.vec3(jugadors[0], jugadors[1], jugadors[2]) #aqui vaig actualitzant la info de la posicio de la camera

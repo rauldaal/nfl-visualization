@@ -38,3 +38,6 @@ class Texture:
 
     def destroy(self):
         [tex.release() for tex in self.textures.values()]
+    
+    def add_voronoi_texture(self):
+        self.textures['voronoi'] = self.get_texture(path='tmp/voronoi.jpg')
