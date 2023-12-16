@@ -10,7 +10,7 @@ class Player_Local(Objects):
         
     def move(self, x, y, angle):
         self.pos = (x, self.pos[1], y)
-        translation_vector = glm.vec3(self.pos[0], 0, self.pos[2])
+        translation_vector = glm.vec3(self.pos[0], self.pos[1], self.pos[2])
         origin = glm.translate(glm.mat4(1.0), translation_vector)
         new_angle = glm.rotate(glm.mat4(1.0), glm.radians(angle), (0,1,0))
         stand_up = glm.rotate(glm.mat4(1.0), glm.radians(-90), (1,0,0))
@@ -25,7 +25,7 @@ class Player_Visitant(Objects):
         
     def move(self, x, y, angle):
         self.pos = (x, self.pos[1], y)
-        translation_vector = glm.vec3(self.pos[0], 0, self.pos[2])
+        translation_vector = glm.vec3(self.pos[0], self.pos[1], self.pos[2])
         origin = glm.translate(glm.mat4(1.0), translation_vector)
         new_angle = glm.rotate(glm.mat4(1.0), glm.radians(angle), (0,1,0))
         stand_up = glm.rotate(glm.mat4(1.0), glm.radians(-90), (1,0,0))

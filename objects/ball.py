@@ -10,6 +10,6 @@ class Ball(Objects):
 
     def move(self, x, y):
         self.pos = (x, self.pos[1], y)
-        translation_vector = glm.vec3(self.pos[0], 0, self.pos[2])
+        translation_vector = glm.vec3(self.pos[0], self.pos[1], self.pos[2])
         origin = glm.translate(glm.mat4(1.0), translation_vector)
-        self.m_model = origin * glm.scale((3,3,3))
+        self.m_model = origin * glm.scale((2,2,2))

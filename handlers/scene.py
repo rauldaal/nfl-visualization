@@ -64,7 +64,7 @@ class Scene:
                 angle = players_local.iloc[i]['dir']
             # add(Player_Local(app, pos=(x, 0.2, z), rot=(-90, angle, 0)))
             player_id = str(int(players_local.iloc[i]['nflId']))
-            self.moving_objects[player_id] = Player_Local(app, pos=(x, 0.5, z), rot=(-90, angle, 0))
+            self.moving_objects[player_id] = Player_Local(app, pos=(x, 0.2, z), rot=(-90, angle, 0))
             jugadors.append((x, 2.5, z))
 
 
@@ -79,21 +79,9 @@ class Scene:
                 angle = players_local.iloc[i]['dir']
             # add(Player_Visitant(app, pos=(x, 0.2, z), rot=(-90, angle, 0)))
             player_id = str(int(players_visitor.iloc[i]['nflId']))
-            self.moving_objects[player_id] = Player_Visitant(app, pos=(x, 0.5, z), rot=(-90, angle, 0))
+            self.moving_objects[player_id] = Player_Visitant(app, pos=(x, 0.2, z), rot=(-90, angle, 0))
             jugadors.append((x, 2.5, z))
 
-        # add(Porteria_Local(app, pos=(0, 0, 27.5), rot=(0, 0, 0)))
-        # add(Porteria_Visitant(app, pos=(122, 0, 27.5), rot=(0, 180, 0)))
-        # add(Person(app, pos=(30, 0.2, 0)))
-        # add(Referee(app, pos=(110, 0.2, 56), rot=(0, 180, 0)))
-        # add(Referee(app, pos=(112, 0.2, 0), rot=(0, 0, 0)))
-        # add(Referee(app, pos=(90, 0.2, 10), rot=(0, 0, 0)))
-        # add(Fans(app, pos=(60, 27.5, 80), rot=(0, 0, 0), scale=(0.6, 1, 0.8)))
-        # add(Fans(app, pos=(60, 27.5, -30), rot=(0, 180, 0), scale=(0.6, 1, 0.8)))
-        # add(Fans(app, pos=(147, 27.5, 30), rot=(30, 90, 0), scale=(0.3, 1, 0.2)))
-        # add(Fans(app, pos=(-24, 27.5, 30), rot=(30, 90+180, 0), scale=(0.25, 1, 0.2)))
-        # add(Cocacola(app, pos=(-20, 47,-20), scale=(0.5, 0.5, 0.5), rot=(0, 45, 0)))
-        # add(Cocacola(app, pos=(143, 45, 75), scale=(0.45, 0.45, 0.45), rot=(0, 225, 0)))
         self.static_objects.append(Porteria_Local(app, pos=(0, 0, 27.5), rot=(0, 0, 0)))
         self.static_objects.append(Porteria_Visitant(app, pos=(122, 0, 27.5), rot=(0, 180, 0)))
         self.static_objects.append(Person(app, pos=(30, 0.2, 0)))
