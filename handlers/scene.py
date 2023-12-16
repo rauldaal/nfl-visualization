@@ -64,7 +64,7 @@ class Scene:
                 angle = players_local.iloc[i]['dir']
             # add(Player_Local(app, pos=(x, 0.2, z), rot=(-90, angle, 0)))
             player_id = str(int(players_local.iloc[i]['nflId']))
-            self.moving_objects[player_id] = Player_Local(app, pos=(x, 0.2, z), rot=(-90, angle, 0))
+            self.moving_objects[player_id] = Player_Local(app, pos=(x, 0.5, z), rot=(-90, angle, 0))
             jugadors.append((x, 2.5, z))
 
 
@@ -79,7 +79,7 @@ class Scene:
                 angle = players_local.iloc[i]['dir']
             # add(Player_Visitant(app, pos=(x, 0.2, z), rot=(-90, angle, 0)))
             player_id = str(int(players_visitor.iloc[i]['nflId']))
-            self.moving_objects[player_id] = Player_Visitant(app, pos=(x, 0.2, z), rot=(-90, angle, 0))
+            self.moving_objects[player_id] = Player_Visitant(app, pos=(x, 0.5, z), rot=(-90, angle, 0))
             jugadors.append((x, 2.5, z))
 
         # add(Porteria_Local(app, pos=(0, 0, 27.5), rot=(0, 0, 0)))
@@ -106,24 +106,7 @@ class Scene:
         self.static_objects.append(Fans(app, pos=(-24, 27.5, 30), rot=(30, 90+180, 0), scale=(0.25, 1, 0.2)))
         self.static_objects.append(Cocacola(app, pos=(-20, 47,-20), scale=(0.5, 0.5, 0.5), rot=(0, 45, 0)))
         self.static_objects.append(Cocacola(app, pos=(143, 45, 75), scale=(0.45, 0.45, 0.45), rot=(0, 225, 0)))
-        
-        offset = (1.9, 1.2, -4)  
-        pos_objeto = (offset[0], offset[1], offset[2])
-        if self.app.show_menu:
-            add(Menu(app, pos=(0,0,-15)))
-        else:
-            if self.app.estadisticas:
-                p = self.app.WIN_SIZE
-                s = p[0] / p[1]
-                offset = (p[0] * 0.00160, s * .80, -4)
-                self.static_objects.append(Stats(app, pos=(offset[0],offset[1],offset[2]),
-                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats1'))
-                pos_objeto = (offset[0], offset[1]-1.2, offset[2])
-                self.static_objects.append(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
-                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats2'))
-                pos_objeto = (offset[0], offset[1]-2.4, offset[2])
-                self.static_objects.append(Stats(app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
-                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats3'))
+
         # if prev_data is not None:
         #     for i in range(len(prev_data)):
         #         x = prev_data.iloc[i]['x']
@@ -133,32 +116,54 @@ class Scene:
         return jugadors
 
     def render(self, data=None, prev_data=None, voronoi=False):
-        self.objects = []
-        for obj in self.static_objects:
-            obj.render()
-        for player_id in data['nflId']:
-            if isnan(player_id):
-                continue
-            x = data[data['nflId'] == player_id]['x'].values[0]
-            z = data[data['nflId'] == player_id]['y'].values[0]
-            angle = data[data['nflId'] == player_id]['dir']
-            player_id = str(int(player_id))
-            player = self.moving_objects[player_id]
-            player.move(x, z, angle)
-            player.render()
-            player.points.append((x, z))
-            if prev_data:
-                num_points = min(prev_data, len(player.points))
-                for point in player.points[-num_points:]:
-                    p = Point(self.app, pos=(point[0], 0.3, point[1]), rot=(0, 0, 0))
-                    p.render()
-            jugadors.append((x, 2.5, z))
-        ball_pos_x = data[data['nflId'].isna()]['x'].values[0]
-        ball_pos_y = data[data['nflId'].isna()]['y'].values[0]
-        self.moving_objects['ball'].move(ball_pos_x, ball_pos_y)
-        self.moving_objects['ball'].render()
-        if voronoi:
-            self.vg.compute_voronoi(data=data, frame=self.app.frame)
-            self.app.mesh.add_voronoi_texture()
-            add(Field(app, pos=(61, 0.1, 27.5), rot=(0, 180, 0), vao_name='voronoi', tex_id='voronoi'))
+        offset = (1.9, 1.2, -4)  
+        jugadors = []
+        pos_objeto = (offset[0], offset[1], offset[2])
+        if self.app.show_menu:
+            m = Menu(self.app, pos=(0,0,-15))
+            m.render()
+        else:
+            if self.app.estadisticas:
+                p = self.app.WIN_SIZE
+                s = p[0] / p[1]
+                offset = (p[0] * 0.00160, s * .80, -4)
+                s1 = Stats(self.app, pos=(offset[0],offset[1],offset[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats1')
+                pos_objeto = (offset[0], offset[1]-1.2, offset[2])
+                s2 = Stats(self.app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats2')
+                pos_objeto = (offset[0], offset[1]-2.4, offset[2])
+                s3 = Stats(self.app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats3')
+                s1.render()
+                s2.render()
+                s3.render()
+            for obj in self.static_objects:
+                obj.render()
+            for player_id in data['nflId']:
+                if isnan(player_id):
+                    continue
+                x = data[data['nflId'] == player_id]['x'].values[0]
+                z = data[data['nflId'] == player_id]['y'].values[0]
+                angle = data[data['nflId'] == player_id]['dir']
+                player_id = str(int(player_id))
+                player = self.moving_objects[player_id]
+                player.move(x, z, angle)
+                player.render()
+                player.points.append((x, z))
+                if prev_data:
+                    num_points = min(prev_data, len(player.points))
+                    for point in player.points[-num_points:]:
+                        p = Point(self.app, pos=(point[0], 0.3, point[1]), rot=(0, 0, 0))
+                        p.render()
+                jugadors.append((x, 2.5, z))
+            ball_pos_x = data[data['nflId'].isna()]['x'].values[0]
+            ball_pos_y = data[data['nflId'].isna()]['y'].values[0]
+            self.moving_objects['ball'].move(ball_pos_x, ball_pos_y)
+            self.moving_objects['ball'].render()
+            if voronoi:
+                self.vg.compute_voronoi(data=data, frame=self.app.frame)
+                self.app.mesh.add_voronoi_texture()
+                v = Field(self.app, pos=(61, 0.1, 27.5), rot=(0, 180, 0), vao_name='voronoi', tex_id='voronoi')
+                v.render()
         return jugadors

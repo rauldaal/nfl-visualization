@@ -159,7 +159,7 @@ class GraphicsEngine:
                 self.before = not self.before
             
             elif event.type == pg.KEYDOWN and event.key == pg.K_1 and not self.show_menu:
-                self.show_path = 9999 if self.show_path == False else False
+                self.show_path = 10 if self.show_path == False else False
 
             elif event.type == pg.KEYDOWN and event.key == pg.K_0:
                 self.show_menu = not self.show_menu
@@ -179,6 +179,9 @@ class GraphicsEngine:
                 self.show_menu = False
                 self.dron = True
                 self.play = 9
+                data = self.dataloader.get_frame_information(frames_id=self.frame)
+                # scene
+                self.scene = Scene(self, data)
             elif event.type == pg.KEYDOWN and event.key == pg.K_8 and self.show_menu:
                 self.dataloader.load_example(3014)
                 self.dataloader.get_num_frames()
@@ -186,6 +189,9 @@ class GraphicsEngine:
                 self.show_menu = False
                 self.dron = True
                 self.play = 8
+                data = self.dataloader.get_frame_information(frames_id=self.frame)
+                # scene
+                self.scene = Scene(self, data)
             elif event.type == pg.KEYDOWN and event.key == pg.K_7 and self.show_menu:
                 self.dataloader.load_example(1319)
                 self.dataloader.get_num_frames()
@@ -193,6 +199,9 @@ class GraphicsEngine:
                 self.show_menu = False
                 self.dron = True
                 self.play = 7
+                data = self.dataloader.get_frame_information(frames_id=self.frame)
+                # scene
+                self.scene = Scene(self, data)
             elif event.type == pg.KEYDOWN and event.key == pg.K_6 and self.show_menu:
                 self.dataloader.load_example(97)
                 self.dataloader.get_num_frames()
@@ -200,6 +209,9 @@ class GraphicsEngine:
                 self.show_menu = False
                 self.dron = True
                 self.play = 6
+                data = self.dataloader.get_frame_information(frames_id=self.frame)
+                # scene
+                self.scene = Scene(self, data)
             elif event.type == pg.KEYDOWN and event.key == pg.K_5 and self.show_menu:
                 self.dataloader.load_example()
                 self.dataloader.get_num_frames()
@@ -207,7 +219,9 @@ class GraphicsEngine:
                 self.show_menu = False
                 self.dron = True
                 self.play = 0
-
+                data = self.dataloader.get_frame_information(frames_id=self.frame)
+                # scene
+                self.scene = Scene(self, data)
  
             elif event.type == pg.KEYDOWN and event.key == pg.K_v:
                 self.paused = not self.paused
@@ -237,7 +251,7 @@ class GraphicsEngine:
         if self.frame == 1:
             self.show_path = False
         # render scene
-        jugadors = self.scene.render(data, self.self.show_path, voronoi=self.voronoi) #aqui agafo les dades
+        jugadors = self.scene.render(data, self.show_path, voronoi=self.voronoi) #aqui agafo les dades
         if self.player:
             jugadors = jugadors[self.jugador]
             self.camera.position = glm.vec3(jugadors[0], jugadors[1], jugadors[2]) #aqui vaig actualitzant la info de la posicio de la camera
