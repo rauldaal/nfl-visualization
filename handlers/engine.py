@@ -78,15 +78,6 @@ class GraphicsEngine:
         self.show_path = False
         # show menu
         self.show_menu = True
-        # scene
-        self.scene = Scene(self)
-        # num_play
-        # 0 --> id 39974
-        # 9 --> id 2441
-        # 8 --> id 3014
-        # 7 --> id 1319
-        # 6 --> id 1319
-        self.play = 0 
 
         #data loader
         self.dataloader = DataLoader(
@@ -98,6 +89,23 @@ class GraphicsEngine:
         self.dataloader.load_example()
         self.dataloader.get_num_frames()
         self.frame = 1
+        
+        data = self.dataloader.get_frame_information(frames_id=self.frame)
+        self.scene = Scene(self, data)
+        if (self.time - self.delta_time) > 0.1 and not self.paused:
+            self.delta_time = self.time
+            if not self.before:
+                self.update_frame_id()
+            else:
+                self.update_before_frame_id()
+        # scene
+        # num_play
+        # 0 --> id 39974
+        # 9 --> id 2441
+        # 8 --> id 3014
+        # 7 --> id 1319
+        # 6 --> id 1319
+        self.play = 0 
 
     def check_events(self):
         for event in pg.event.get():
@@ -146,7 +154,7 @@ class GraphicsEngine:
                 self.before = not self.before
             
             elif event.type == pg.KEYDOWN and event.key == pg.K_1 and not self.show_menu:
-                self.show_path = not self.show_path
+                self.show_path = 9999 if self.show_path == False else False
 
             elif event.type == pg.KEYDOWN and event.key == pg.K_0:
                 self.show_menu = not self.show_menu
@@ -194,8 +202,6 @@ class GraphicsEngine:
                 self.show_menu = False
                 self.dron = True
                 self.play = 0
-
- 
     
     def update_frame_id(self):
         self.frame += 1
@@ -213,11 +219,12 @@ class GraphicsEngine:
         self.ctx.clear(color=(0.08, 0.16, 0.18))
         # get new data
         data = self.dataloader.get_frame_information(frames_id=self.frame)
-        prev_data = None
-        if self.show_path:
-            prev_data=self.dataloader.get_prev_frame_information(frames_id=self.frame)
+        # prev_data = None
+        # if self.show_path:
+            # prev_data=self.dataloader.get_prev_frame_information(frames_id=self.frame)
+            # prev_data = 5
         # render scene
-        jugadors = self.scene.render(data, prev_data)  #aqui agafo les dades
+        jugadors = self.scene.render(data, self.show_path)  #aqui agafo les dades
         if self.player:
             jugadors = jugadors[self.jugador]
             self.camera.position = glm.vec3(jugadors[0], jugadors[1], jugadors[2]) #aqui vaig actualitzant la info de la posicio de la camera
