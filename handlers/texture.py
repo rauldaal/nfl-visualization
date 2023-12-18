@@ -16,9 +16,6 @@ class Texture:
         self.textures['stadium'] = self.get_texture(path='textures/stadium_base.png')
         self.textures['hc'] = self.get_texture(path='textures/coach.png')
         self.textures['referee'] = self.get_texture(path='textures/referee.png')
-        self.textures['stats1'] = self.get_texture(path='textures/stat1.jpg')
-        self.textures['stats2'] = self.get_texture(path='textures/stat2.jpeg')
-        self.textures['stats3'] = self.get_texture(path='tmp/voronoi.jpg')
         self.textures['fans'] = self.get_texture(path='textures/fans.jpg')
         self.textures['cocacola'] = self.get_texture(path='textures/cocacola.jpeg')
         self.textures['point'] = self.get_texture(path='textures/darkblue.jpg')
@@ -45,4 +42,4 @@ class Texture:
         
     def add_stats_texture(self):
         self.textures['stats1'] = self.get_texture(path='textures/stat1.jpg')
-        # self.textures['stats2'] = self.get_texture(path='textures/stat2.jpg')
+        self.textures['stats2'] = self.get_texture(path='textures/stat2.jpg')
