@@ -96,7 +96,7 @@ class GraphicsEngine:
             week_df='data/allweeks.csv'
         )
 
-        self.dataloader.load_example()
+        self.dataloader.load_example(39974)
         self.dataloader.get_num_frames()
         self.frame = 1
         
@@ -183,7 +183,7 @@ class GraphicsEngine:
                 # scene
                 self.scene = Scene(self, data)
             elif event.type == pg.KEYDOWN and event.key == pg.K_8 and self.show_menu:
-                self.dataloader.load_example(3014)
+                self.dataloader.load_example(1234)
                 self.dataloader.get_num_frames()
                 self.frame = 1
                 self.show_menu = False
@@ -213,7 +213,7 @@ class GraphicsEngine:
                 # scene
                 self.scene = Scene(self, data)
             elif event.type == pg.KEYDOWN and event.key == pg.K_5 and self.show_menu:
-                self.dataloader.load_example()
+                self.dataloader.load_example(39974)
                 self.dataloader.get_num_frames()
                 self.frame = 1
                 self.show_menu = False
@@ -276,23 +276,21 @@ class GraphicsEngine:
             self.check_events()
             # pg.display.set_caption('image')
             if self.dron:
-                if self.play == 0:
+                if self.play == 0 or self.play==8:
                     self.get_camera(50,30,27.5,0,-35)  
                 else:
                     self.get_camera(95,30,27.5,180,-35)
 
             if self.mister:
-                if self.play == 0:
+                if self.play == 0 or self.play==8:
                     self.get_camera(30,3.5,0,13,0)
                 elif self.play == 9 or self.play==7:
                     self.get_camera(30,3.5,0,45,0)
-                elif self.play == 8:
-                    self.get_camera(30,3.5,0,90,0)
                 else:
                     self.get_camera(30,3.5,0,52,0)
 
             if self.espectator:
-                if self.play == 0:
+                if self.play == 0 or self.play==8:
                     self.get_camera(80,35,70,-75,-45)
                 else:
                     self.get_camera(80,35,70,-125,-38)

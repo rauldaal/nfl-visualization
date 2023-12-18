@@ -149,7 +149,10 @@ class Scene:
                 if prev_data:
                     num_points = min(prev_data, len(player.points))
                     for point in player.points[-num_points:]:
-                        p = Point(self.app, pos=(point[0], 0.3, point[1]), rot=(0, 0, 0))
+                        if type(player) == Player_Local:
+                            p = Point(self.app, pos=(point[0], 0.3, point[1]), rot=(0, 0, 0))
+                        else:
+                            p = Point(self.app, pos=(point[0], 0.3, point[1]), rot=(0, 0, 0), tex_id='point_local')
                         p.render()
                 jugadors.append((x, 2.5, z))
             ball_pos_x = data[data['nflId'].isna()]['x'].values[0]
