@@ -28,11 +28,8 @@ class DataLoader():
         return self.data[(self.data['frameId'] <= frames_id) & (self.data['frameId'] > frames_id-10)]
 
     def load_example(self, id=None):
-        if not id:
-            self.data = pd.read_csv('data/exemple1.csv')
-        else:
-            df = pd.read_csv('data/week1.csv')
-            self.data = df[df['playId'] == id]
+        self.data = pd.read_csv(f'data/{id}_playid.csv')
+            
 
     def _generate_stats(self):
         # stat1 - tracking
