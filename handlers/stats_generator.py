@@ -11,8 +11,8 @@ class Voronoi_Generator:
         if self.last_computed_frame != frame:
             data = data.dropna(subset=['nflId'])
             teams = data['team'].unique()
-            data['team_color'] = data['team'].apply(lambda x: 'red' if x == teams[0] else 'blue')
-            data['y'] = data['y']*-1
+            data['team_color'] = data['team'].apply(lambda x: 'blue' if x == teams[0] else 'red')
+            data['y'] = -data['y']
             points = data[['x', 'y']].to_numpy()
             colours = data['team_color'].to_list()
             coords = np.append(points, [[999,999], [-999,999], [999,-999], [-999,-999]], axis = 0)

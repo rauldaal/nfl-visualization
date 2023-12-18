@@ -11,8 +11,6 @@ from .data_loader import DataLoader
 import glm
 import pandas as pd
 
-
-
 class GraphicsEngine:
     def __init__(self, win_size=(1200, 780)):
         # pause the scene
@@ -61,22 +59,6 @@ class GraphicsEngine:
         # mesh
         self.mesh = Mesh(self)
 
-        # pause the scene
-        self.paused = False
-        #camera dron
-        self.dron = False
-        # camera mister
-        self.mister = False    
-        # camera espectator
-        self.espectator = False
-        # camera backgrounds
-        self.before = False
-        # camera player
-        self.player = False
-        # camera change player
-        self.jugador = 0
-        # show path
-        self.show_path = False
         # show menu
         self.show_menu = True
         # num_play
@@ -109,8 +91,6 @@ class GraphicsEngine:
                 self.update_frame_id()
             else:
                 self.update_before_frame_id()
-        
-
 
     def check_events(self):
         for event in pg.event.get():
@@ -172,9 +152,11 @@ class GraphicsEngine:
                     self.player = False
                 else:
                     self.dron = True
+                    self.dataloader._generate_stats()
             elif event.type == pg.KEYDOWN and event.key == pg.K_9 and self.show_menu:
                 self.dataloader.load_example(2441)
                 self.dataloader.get_num_frames()
+                self.dataloader._generate_stats()
                 self.frame = 1
                 self.show_menu = False
                 self.dron = True
@@ -182,9 +164,11 @@ class GraphicsEngine:
                 data = self.dataloader.get_frame_information(frames_id=self.frame)
                 # scene
                 self.scene = Scene(self, data)
+                
             elif event.type == pg.KEYDOWN and event.key == pg.K_8 and self.show_menu:
                 self.dataloader.load_example(3014)
                 self.dataloader.get_num_frames()
+                self.dataloader._generate_stats()
                 self.frame = 1
                 self.show_menu = False
                 self.dron = True
@@ -192,7 +176,9 @@ class GraphicsEngine:
                 data = self.dataloader.get_frame_information(frames_id=self.frame)
                 # scene
                 self.scene = Scene(self, data)
+                
             elif event.type == pg.KEYDOWN and event.key == pg.K_7 and self.show_menu:
+                self.dataloader._generate_stats()
                 self.dataloader.load_example(1319)
                 self.dataloader.get_num_frames()
                 self.frame = 1
@@ -202,9 +188,11 @@ class GraphicsEngine:
                 data = self.dataloader.get_frame_information(frames_id=self.frame)
                 # scene
                 self.scene = Scene(self, data)
+                
             elif event.type == pg.KEYDOWN and event.key == pg.K_6 and self.show_menu:
                 self.dataloader.load_example(97)
                 self.dataloader.get_num_frames()
+                self.dataloader._generate_stats()
                 self.frame = 1
                 self.show_menu = False
                 self.dron = True
@@ -212,9 +200,11 @@ class GraphicsEngine:
                 data = self.dataloader.get_frame_information(frames_id=self.frame)
                 # scene
                 self.scene = Scene(self, data)
+
             elif event.type == pg.KEYDOWN and event.key == pg.K_5 and self.show_menu:
                 self.dataloader.load_example()
                 self.dataloader.get_num_frames()
+                self.dataloader._generate_stats()
                 self.frame = 1
                 self.show_menu = False
                 self.dron = True
@@ -222,9 +212,9 @@ class GraphicsEngine:
                 data = self.dataloader.get_frame_information(frames_id=self.frame)
                 # scene
                 self.scene = Scene(self, data)
- 
+                
             elif event.type == pg.KEYDOWN and event.key == pg.K_v:
-                self.paused = not self.paused
+                # self.paused = not self.paused
                 self.voronoi = not self.voronoi
                 
     

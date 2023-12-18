@@ -1,5 +1,6 @@
 import pandas as pd
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 class DataLoader():
 
@@ -32,3 +33,15 @@ class DataLoader():
         else:
             df = pd.read_csv('data/week1.csv')
             self.data = df[df['playId'] == id]
+
+    def _generate_stats(self):
+        # stat1 - tracking
+        plt.figure(figsize=(10, 6))
+        data = self.data
+        # Plot TB team in blue
+        sns.scatterplot(x='x', y='y', data=data[data['team'] == 'TB'], color='blue', label='TB')
+        # Plot DAL team in red
+        sns.scatterplot(x='x', y='y', data=data[data['team'] == 'DAL'], color='red', label='DAL')
+        plt.title('Player Positions - TB (Blue) and DAL (Red)')
+        plt.legend()
+        plt.savefig('textures/stat1.jpg', bbox_inches='tight', pad_inches=0)

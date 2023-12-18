@@ -112,19 +112,29 @@ class Scene:
             m = Menu(self.app, pos=(0,0,-15))
             m.render()
         else:
+            # Voronoi
+            if voronoi:
+                self.vg.compute_voronoi(data=data, frame=self.app.frame)
+                self.app.mesh.add_voronoi_texture()
+                v = Field(self.app, pos=(61, 0.1, 27.5), rot=(0, 180, 0), vao_name='voronoi', tex_id='voronoi')
+                v.render()
             # Estadisticas
             if self.app.estadisticas:
                 p = self.app.WIN_SIZE
                 s = p[0] / p[1]
                 offset = (p[0] * 0.00160, s * .80, -4)
+                self.app.mesh.add_stats_texture()
                 s1 = Stats(self.app, pos=(offset[0],offset[1],offset[2]),
                                 scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats1')
                 pos_objeto = (offset[0], offset[1]-1.2, offset[2])
                 s2 = Stats(self.app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
                                 scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats2')
                 pos_objeto = (offset[0], offset[1]-2.4, offset[2])
+                if not voronoi:
+                    self.vg.compute_voronoi(data=data, frame=self.app.frame)
+                    self.app.mesh.add_voronoi_texture()
                 s3 = Stats(self.app, pos=(pos_objeto[0],pos_objeto[1],pos_objeto[2]),
-                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='stats3')
+                                scale=(0.005 * s, 0.0005, 0.007 * s), tex_id='voronoi')
                 s1.render()
                 s2.render()
                 s3.render()
@@ -156,9 +166,4 @@ class Scene:
             ball_pos_y = data[data['nflId'].isna()]['y'].values[0]
             self.moving_objects['ball'].move(ball_pos_x, ball_pos_y)
             self.moving_objects['ball'].render()
-            if voronoi:
-                self.vg.compute_voronoi(data=data, frame=self.app.frame)
-                self.app.mesh.add_voronoi_texture()
-                v = Field(self.app, pos=(61, 0.1, 27.5), rot=(0, 180, 0), vao_name='voronoi', tex_id='voronoi')
-                v.render()
         return jugadors
