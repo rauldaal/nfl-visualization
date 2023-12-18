@@ -29,16 +29,18 @@ class DataLoader():
 
     def load_example(self, id=None):
         self.data = pd.read_csv(f'data/{id}_playid.csv')
-            
 
     def _generate_stats(self):
         # stat1 - tracking
         plt.figure(figsize=(10, 6))
         data = self.data
+        team_a, team_b = data['team'].unique()[:2]
         # Plot TB team in blue
-        sns.scatterplot(x='x', y='y', data=data[data['team'] == 'TB'], color='blue', label='TB')
+        sns.scatterplot(x='x', y='y', data=data[data['team'] == team_b], color='blue', label='TB')
         # Plot DAL team in red
-        sns.scatterplot(x='x', y='y', data=data[data['team'] == 'DAL'], color='red', label='DAL')
+        sns.scatterplot(x='x', y='y', data=data[data['team'] == team_a], color='red', label='DAL')
         plt.title('Player Positions - TB (Blue) and DAL (Red)')
         plt.legend()
         plt.savefig('textures/stat1.jpg', bbox_inches='tight', pad_inches=0)
+        # stat2 - barras
+        

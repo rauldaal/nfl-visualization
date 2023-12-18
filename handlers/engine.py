@@ -178,9 +178,9 @@ class GraphicsEngine:
                 self.scene = Scene(self, data)
                 
             elif event.type == pg.KEYDOWN and event.key == pg.K_7 and self.show_menu:
-                self.dataloader._generate_stats()
                 self.dataloader.load_example(1319)
                 self.dataloader.get_num_frames()
+                self.dataloader._generate_stats()
                 self.frame = 1
                 self.show_menu = False
                 self.dron = True
